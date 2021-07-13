@@ -1,7 +1,3 @@
-var math = document.getElementsByClassName('math');
-for (var i = 0; i < math.length; i++) {
-  katex.render(math[i].textContent, math[i]);
-}
 let config  = initplot();
 let Fs = 44100;
 let [x , audio] = createsinwave(Fs);

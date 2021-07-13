@@ -18,6 +18,13 @@ label {
     background-color: #2196F3;
     padding: 10px;
   }
+  .grid-container2 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 450px 450px;
+    background-color: #2196F3;
+    padding: 10px;
+  }
   .grid-item {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
@@ -25,12 +32,11 @@ label {
     font-size: 20px;
     text-align: center;
   }
-  .grid-items {
-    grid-column:3 / 5;
+  .grid-item2 {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
+    padding: 112px;
+    font-size: 40px;
     text-align: center;
   }
   .slidecontainer {
