@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sums and Series</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{k=1}^{\infty}\frac{1}{k^2}? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            Here is an accessible proof sketch to the so-called Basel problem:
+
+            $$S = \sum_{k=1}^{\infty}\frac{1}{k^2}. $$
+            
+            We begin by defining a “generating” integral:
+
+            $$ I = \int_{0}^{\pi/4}x(\tan x + \cot x) \, \mathrm dx. $$
+
+            Noting the complex definitions for the trigonometric terms and algebraically rearranging:
+
+            $$\begin{aligned} \tan x &= -i\frac{e^{ix}-e^{-ix}}{e^{ix}+e^{-ix}} = -i + \frac{2i}{1+e^{2ix}} 
+            \\ \cot x &= +i\frac{e^{ix}+e^{-ix}}{e^{ix}-e^{-ix}} = +i - \frac{2i}{1-e^{2ix}},\end{aligned} $$
+
+            we substitute these into $I$ then apply the geometric series and interchange the order of summation and integration:
+
+            $$\begin{aligned} I &= 2i\int_{0}^{\pi/4}x\left(\frac{1}{1+e^{2ix}} - \frac{1}{1-e^{2ix}}\right) \, \mathrm dx 
+            \\ &= 2i\int_{0}^{\pi/4}x\left(\sum_{n=0}^{\infty}(-1)^ne^{2inx} - \sum_{n=0}^{\infty}e^{2inx}\right) \, \mathrm dx 
+            \\ &= 2i\sum_{n=1}^{\infty}\left((-1)^n-1\right)\int_{0}^{\pi/4}xe^{2inx} \, \mathrm dx. \end{aligned} $$
+
+            We handle the inner integral via the substitution $w = 2inx$ then standardly apply integration by parts once:
+           
+            $$\begin{aligned} \int_{0}^{\pi/4}xe^{2inx} \, \mathrm dx &= \frac{1}{(2in)^2}\int_{0}^{i\pi n/2}we^w \, \mathrm dw 
+            \\ &= -\frac{1}{4n^2}\left(e^w\left(w-1\right)\right)\Bigg|_{0}^{i\pi n/2} 
+            \\ &= e^{i\pi n/2}\left(-\frac{\pi}{8n}i+\frac{1}{4n^2}\right) - \frac{1}{4n^2}. \end{aligned} $$
+
+            Substituting this result back into $I$, we have
+
+            $$I = 2i\sum_{n=1}^{\infty}\left((-1)^n-1\right)\left[e^{i\pi n/2}\left(-\frac{\pi}{8n}i+\frac{1}{4n^2}\right) - \frac{1}{4n^2}\right], $$
+
+            and since the sum is non-zero only when $n$ is odd we reindex by $n=2k+1$ and simplify to yield
+
+            $$ I = \sum_{k=0}^{\infty}\left[(-1)^k\left(-\frac{\pi}{2(2k+1)}i + \frac{1}{(2k+1)^2}\right)+\frac{1}{(2k+1)^2}i\right]. $$
+            
+            However, since $I$ is real-valued we must have
+
+            $$ \mathcal{Im}(I) = \sum_{k=0}^{\infty}\frac{1}{(2k+1)^2} - \frac{\pi}{2}\sum_{k=0}^{\infty}\frac{(-1)^k}{2k+1}= 0. $$
+
+            The latter sum is simply the Maclaurin series for $\arctan x$ evaluated at $x=1$:
+
+            $$ \sum_{k=0}^{\infty}\frac{(-1)^k}{2k+1} = \frac{\pi}{4}, $$
+
+            and the first sum can be related to the sum in question:
+            $$\begin{aligned} \sum_{k=0}^{\infty}\frac{1}{(2k+1)^2} &= \left(\frac{1}{1^2} + \frac{1}{3^2} + \frac{1}{5^2} \cdots\right) 
+            \\ &= \left(\frac{1}{1^2} + \frac{1}{2^2} + \frac{1}{3^2} \cdots\right) - \left(\frac{1}{2^2} + \frac{1}{4^2} + \frac{1}{6^2} \cdots\right) 
+            \\ &= \sum_{k=1}^{\infty}\frac{1}{k^2} - \sum_{k=1}^{\infty}\frac{1}{(2k)^2} \\ &= \frac{3}{4}S. \end{aligned} $$
+
+            Putting it together, we have
+
+            $$ \mathcal{Im}(I) = \frac{3}{4}S - \frac{\pi}{2}\cdot \frac{\pi}{4} = 0,$$
+
+            and we solve for $S$ to find
+
+            $$ S = \frac{\pi^2}{6}. $$
+            
+            We conclude that
+
+            $$ S = \sum_{k=1}^{\infty}\frac{1}{k^2} = \frac{\pi^2}{6}. $$
+              
+
+            
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>

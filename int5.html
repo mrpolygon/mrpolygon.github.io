@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \int_{0}^{1}\frac{\arctan\left(\sqrt{x^2+2}\right)}{\sqrt{x^2+2}\left(x^2+1\right)} \, \mathrm dx? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            We want to evaluate Ahmed’s integral:
+
+            $$ I = \int_{0}^{1}\frac{\arctan\left(\sqrt{x^2+2}\right)}{\sqrt{x^2+2}\left(x^2+1\right)} \, \mathrm dx. $$
+            
+            We first introduce a parameter $a \geq 0$ as
+
+            $$ J(a) = \int_{0}^{1}\frac{\arctan\left(a\sqrt{x^2+2}\right)}{\sqrt{x^2+2}\left(x^2+1\right)} \, \mathrm dx, $$
+
+            where we are looking for $I=J(1)$. We differentiate both sides with respect to $a$, decompose the result into partial fractions and evaluate the integrals:
+
+            $$\begin{aligned} J'(a) &= \int_{0}^{1}\frac{1}{\left(x^2+1\right)\left(a^2x^2+2a^2+1\right)} \, \mathrm dx 
+            \\ &= \frac{1}{a^2+1}\left(\int_{0}^{1}\frac{1}{x^2+1} \, \mathrm dx - \int_{0}^{1}\frac{a^2}{a^2x^2+2a^2+1} \, \mathrm dx \right) 
+            \\ &= \frac{1}{a^2+1}\left(\frac{\pi}{4} - \int_{0}^{1}\frac{1}{x^2+\sqrt{\frac{2a^2+1}{a^2}}^2} \, \mathrm dx \right) 
+            \\ &= \frac{1}{a^2+1}\left[\frac{\pi}{4} - \frac{a}{\sqrt{2a^2+1}}\arctan\left(\frac{a}{\sqrt{2a^2+1}}\right) \right]. \end{aligned} $$
+            
+            Now, we integrate both sides from $1$ to $\infty$:
+
+            $$ J(\infty) - J(1) = \frac{\pi}{4}\underbrace{\int_{1}^{\infty}\frac{1}{a^2+1} \, \mathrm da}_{A_{1}} - \underbrace{\int_{1}^{\infty}\frac{a\arctan\left(\frac{a}{\sqrt{2a^2+1}}\right)}{\sqrt{2a^2+1}\left(a^2+1\right)} \, \mathrm da}_{A_{2}}. $$
+            
+            We clearly have
+
+            $$ A_{1} = \int_{1}^{\infty}\frac{1}{a^2+1} \, \mathrm da = \frac{\pi}{4}, $$
+
+            and then
+
+            $$\begin{aligned} A_{2} &= \int_{1}^{\infty}\frac{a\arctan\left(\frac{a}{\sqrt{2a^2+1}}\right)}{\sqrt{2a^2+1}\left(a^2+1\right)} \, \mathrm da 
+            \\ &= \int_{0}^{1}\frac{\arctan\left(\frac{1}{\sqrt{t^2+2}}\right)}{\sqrt{t^2+2}\left(t^2+1\right)} \, \mathrm dt, \, \text{via } a=1/t 
+            \\ &= \frac{\pi}{2}\int_{0}^{1}\frac{1}{\sqrt{t^2+2}\left(t^2+1\right)} \, \mathrm dt - \int_{0}^{1}\frac{\arctan\left(\sqrt{t^2+2}\right)}{\sqrt{t^2+2}\left(t^2+1\right)} \, \mathrm dt, \, \text{via } \arctan(1/z) = \pi/2 - \arctan z 
+            \\ &= J(\infty) - J(1). \end{aligned} $$
+
+            Therefore, we may solve for $J(1)$:
+
+            $$\displaystyle J(1) = J(\infty) - \frac{\pi^2}{32}. $$
+            
+            It remains to evaluate $J(\infty)$:
+
+            $$\begin{aligned} J(\infty) &= \frac{\pi}{2}\int_{0}^{1}\frac{1}{\sqrt{x^2+2}\left(x^2+1\right)} \, \mathrm dx 
+            \\ &= \frac{\pi}{2}\int_{1}^{\infty}\frac{y}{\sqrt{2y^2+1}\left(y^2+1\right)} \, \mathrm dy, \, \text{via } x=1/y 
+            \\ &= \frac{\pi}{4}\int_{1}^{\infty}\frac{1}{\sqrt{2w+1}(w+1)} \, \mathrm dw, \, \text{via } w=y^2 
+            \\ &= \frac{\pi}{2}\int_{\sqrt{3}}^{\infty}\frac{1}{z^2+1} \, \mathrm dz, \, \text{via } z=\sqrt{2w+1} 
+            \\ &= \frac{\pi^2}{12}. \end{aligned} $$
+            
+            We conclude that
+
+            $$ J(1) = I = \frac{5\pi^2}{96}. $$
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
