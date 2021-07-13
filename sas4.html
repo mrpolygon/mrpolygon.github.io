@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sums and Series</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{n=1}^{\infty}\sum_{k=1}^{2n}(-1)^{n+1}\frac{(2\pi)^{2n}}{(2n-k+1)!}\left(\frac{1}{2\pi i}\right)^k? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            We want to evaluate the double sum
+
+            $$ \sum_{n=1}^{\infty}\sum_{k=1}^{2n}(-1)^{n+1}\frac{(2\pi)^{2n}}{(2n-k+1)!}\left(\frac{1}{2\pi i}\right)^k. $$
+            
+            We begin our journey with the definition of a monomial over $0< x < 1$ for $p=0,1,2\ldots$ such that $m_{p}(x+1)=m_{p}(x)$:
+
+            $$ m_{p}(x) = x^p, $$
+
+            where we are attempting to evaluate the complex Fourier coefficients:
+
+            $$ m_{p}(x) = \sum_{q=-\infty}^{+\infty}M_{q,p}e^{2\pi iqx}. $$
+
+            The Fourier coefficients are thus given by orthogonality as
+
+            $$ M_{q,p} = \begin{cases} \int_{0}^{1}x^pe^{-2\pi iqx} \, \mathrm dx, & q \neq 0 \\ \int_{0}^{1}x^p \, \mathrm dx, & q = 0. \end{cases} $$
+
+            For the case where $q \neq 0$, using integration by parts we obtain the recurrence relation
+
+            $$ M_{q \neq 0,p} = \begin{cases} \frac{p}{2\pi iq}M_{q \neq 0,p-1} - \frac{1}{2\pi iq}, & p \geq 1 \\  0, & p = 0, \end{cases} $$
+
+            then we solve the above recurrence relation to obtain
+
+            $$ M_{q \neq 0,p} = -\sum_{k=1}^{p}\frac{p!}{(p-k+1)!}\left(\frac{1}{2\pi iq}\right)^{k}. $$
+
+            We directly integrate for the case where $q=0$:
+            
+            $$ M_{q=0,p} = \frac{1}{p+1}. $$
+
+            Then altogether,
+
+            $$ M_{q,p} = \begin{cases} \displaystyle -\sum_{k=1}^{p}\frac{p!}{(p-k+1)!}\left(\frac{1}{2\pi iq}\right)^{k}, & q \neq 0 \\  \displaystyle \frac{1}{p+1}, & q=0. \end{cases} \tag{*}$$
+            
+            Next, we consider the Fourier series of $\cos(2\pi x)$ over $0 < x < 1$:
+
+            $$ \cos(2\pi x) = \sum_{q=-\infty}^{+\infty}S_{q}e^{2\pi iqx}. $$
+
+            It is rather trivial that the Fourier coefficients are given by
+
+            $$ S_{q} = \frac{1}{2}\delta[q-1] + \frac{1}{2}\delta[q+1]. $$
+
+            However, what if we instead consider Fourier expanding the Maclaurin series of $\cos(2\pi x)$:
+
+            $$ \cos(2\pi x) = \sum_{n=0}^{\infty}(-1)^n\frac{(2\pi)^{2n}}{(2n)!}x^{2n}? $$
+
+            Hence, by superposition of <strong>(*)</strong>, we obtain
+
+            $$\begin{aligned} S_{q \neq 0} &= \sum_{n=1}^{\infty}\sum_{k=1}^{2n}(-1)^{n+1}\frac{(2\pi)^{2n}}{(2n-k+1)!}\left(\frac{1}{2\pi iq}\right)^{k} 
+            \\ &= \frac{1}{2}\delta[q-1] + \frac{1}{2}\delta[q+1]. \end{aligned} $$
+            
+            Finally, we let $q=1$ to conclude that
+
+            $$ \sum_{n=1}^{\infty}\sum_{k=1}^{2n}(-1)^{n+1}\frac{(2\pi)^{2n}}{(2n-k+1)!}\left(\frac{1}{2\pi i}\right)^{k} = \frac{1}{2}. $$
+            
+            
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>

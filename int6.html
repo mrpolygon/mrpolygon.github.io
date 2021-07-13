@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \int_{0}^{\infty}x^n\sin\left(x^k\right) \, \mathrm dx? $$
+</p>
+        </div>
+        <div class="grid-item3">
+
+            $$\textbf{Case 1: } k>0 \tag*{}$$
+
+            Fixing $(k>1+n) \land (k>-1-n)$ (for convergence), consider parameterizing the integral by $t>0$ as
+
+            $$ I(t) = \int_{0}^{\infty}x^n\sin\left(tx^k\right) \, \mathrm dx. $$
+            
+            Taking the Laplace transform of both sides yields (interchanging the order of integration by dominated convergence)
+
+            $$\begin{aligned} \mathcal{L}\left[I(t)\right] &= \int_{0}^{\infty}x^n\int_{0}^{\infty}\sin\left(tx^k\right)e^{-st} \, \mathrm dt \, \mathrm dx 
+            \\ &= \int_{0}^{\infty} \frac{x^{n+k}}{x^{2k}+s^2} \, \mathrm dx. \end{aligned} $$
+
+            For symmetry purposes let $s^2 = b^{2k}$ then apply the transformation $x=b/w$:
+
+            $$ \mathcal{L}\left[I(t)\right] = \int_{0}^{\infty} \frac{x^{n+k}}{x^{2k}+b^{2k}} \, \mathrm dx = \frac{1}{b^{k-n-1}}\int_{0}^{\infty}\frac{w^{k-n-2}}{w^{2k}+1} \, \mathrm dw, $$
+
+            where we restore $s$ then take the inverse Laplace transform of both sides:
+
+            $$\begin{aligned} I(t) &= \mathcal{L}^{-1}\left[\frac{1}{s^{1-n/k-1/k}}\right]\int_{0}^{\infty}\frac{w^{k-n-2}}{w^{2k}+1} \, \mathrm dw 
+            \\ &= \frac{t^{-n/k-1/k}}{\Gamma(1-n/k-1/k)}\underbrace{\int_{0}^{\infty}\frac{w^{k-n-2}}{w^{2k}+1} \, \mathrm dw}_{J}. \end{aligned} $$
+            
+            It remains to evaluate $J$. Break it into $2$ intervals, multiply the latter integral by $w^{−2k}$, then apply the geometric series to both integrals and carefully evaluate:
+
+            $$\begin{aligned} J &= \int_{0}^{1}\frac{w^{k-n-2}}{w^{2k}+1} \, \mathrm dw + \int_{1}^{\infty}\frac{w^{-k-n-2}}{w^{-2k}+1} \, \mathrm dw 
+            \\ &= \sum_{m=0}^{\infty}(-1)^m\left(\int_{0}^{1}w^{2km+k-n-2} \, \mathrm dw + \int_{1}^{\infty}w^{-2km-k-n-2} \, \mathrm dw\right) 
+            \\ &= \sum_{m=0}^{\infty}(-1)^m\left(\frac{1}{2km+k-n-1} + \frac{1}{2km+k+n+1}\right). \end{aligned} $$
+            
+            We now evoke the following series representation for $\sec z$ which can be found in a slightly different form <a href="https://functions.wolfram.com/ElementaryFunctions/Sec/06/ShowAll.html"> here</a> :
+
+            $$ \sec z = \sum_{m=0}^{\infty}(-1)^m\left(\frac{1}{\pi m + \pi /2-z} + \frac{1}{\pi m + \pi /2+z}\right), \, \, \frac{z}{\pi}-\frac{1}{2} \notin \mathbb{Z}. $$
+
+            Letting $z=\frac{\pi(n+1)}{2k}$ and simplifying gives
+
+            $$ \sec \frac{\pi(n+1)}{2k} = \frac{2k}{\pi}\sum_{m=0}^{\infty}(-1)^m\left(\frac{1}{2km+k-n-1} + \frac{1}{2km+k+n+1}\right). $$
+
+            Finally, we multiply both sides by $\frac{\pi}{2k}$:
+
+            $$\begin{aligned} \frac{\pi}{2k} \sec \frac{\pi(n+1)}{2k} &= \sum_{m=0}^{\infty}(-1)^m\left(\frac{1}{2km+k-n-1} + \frac{1}{2km+k+n+1}\right) 
+            \\ &= J. \end{aligned} $$
+            
+            Therefore,
+
+            $$\begin{aligned} I(1) = \frac{1}{\Gamma(1-n/k-1/k)} \cdot \frac{\pi}{2k} \sec \frac{\pi(n+1)}{2k}. \end{aligned} $$
+            
+            $$\textbf{Case 2: } k < 0 \tag*{}$$
+
+            Now, if $k < 0$, we replace $x$ with $x^{-1}$ in $I(t)$:
+
+            $$ I(t) = \int_{0}^{\infty}x^{-n-2}\sin\left(tx^{-k}\right) \, \mathrm dx, $$
+
+            or in terms of $a=-k$ and $b=-n-2$:
+
+            $$ I(t) = \int_{0}^{\infty}x^{b}\sin\left(tx^{a}\right) \, \mathrm dx, $$
+
+            we have already solved this problem in case $1$. From which we see that we must have $(k < 1+n) \land (k < -1-n)$ for convergence and our solution becomes
+
+            $$\displaystyle I(1) = -\frac{1}{\Gamma(1-n/k-1/k)} \cdot \frac{\pi}{2k} \sec \frac{\pi(n+1)}{2k}. $$
+            
+            In all, we conclude that:
+            $$ \int_{0}^{\infty}x^n\sin\left(x^k\right) \, \mathrm dx = \frac{1}{\Gamma(1-n/k-1/k)} \cdot \frac{\pi}{2|k|} \sec \frac{\pi(n+1)}{2k}. $$
+            
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

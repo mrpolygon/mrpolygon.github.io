@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sums and Series</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{k=0}^{\infty}\frac{4^k(k!)^2}{(2k+1)^2(2k)!}? $$
+</p>
+        </div>
+        <div class="grid-item3">
+        We want to evaluate the infinite series
+
+        $$ S = \sum_{k=0}^{\infty}\frac{4^k(k!)^2}{(2k+1)^2(2k)!}. $$
+
+        Before we begin, I would like to say that I arrived at the following solution by making a *mistake* in a recent problem I was working on. :) <br><br>
+
+        We start from afar with
+
+        $$ I = \int_{0}^{1}\frac{\ln\left(\frac{1+x}{1-x}\right)}{\sqrt{1-x^2}} \, \mathrm dx. $$
+
+        Now, we “naturally” break up the integral:
+
+        $$ I = \int_{0}^{1}\left(\ln(1+x) - \ln(1-x)\right) \frac{1}{\sqrt{1-x^2}} \, \mathrm dx, $$
+
+        then substitute the Maclaurin series for the logs and rearrange:
+
+        $$\begin{aligned} I &= \int_{0}^{1}\left(\left(\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}x^n\right) - \left(-\sum_{n=1}^{\infty}\frac{1}{n}x^n\right)\right) \frac{1}{\sqrt{1-x^2}} \, \mathrm dx 
+        \\ &= \sum_{n=1}^{\infty}\frac{(-1)^{n+1}+1}{n}\int_{0}^{1}\frac{x^{n}}{\sqrt{1-x^2}} \, \mathrm dx. \end{aligned} $$
+
+        Since $(-1)^{n+1}+1 = 2$ for odd $n$ and $(-1)^{n+1}+1 = 0$ for even $n$ we have via $n = 2k+1$:
+
+        $$ I = \sum_{k=0}^{\infty}\frac{2}{2k+1}\int_{0}^{1}\frac{x^{2k+1}}{\sqrt{1-x^2}} \, \mathrm dx. $$
+
+        We handle the inner integral via the substitution $t = x^2$ and discover the beta function hiding out:
+
+        $$\begin{aligned} I &= \sum_{k=0}^{\infty}\frac{1}{2k+1}\int_{0}^{1}\frac{t^k}{\sqrt{1-t}} \, \mathrm d t 
+        \\ &= \sum_{k=0}^{\infty}\frac{1}{2k+1}\mathrm{B}(k+1,1/2) 
+        \\ &= \sum_{k=0}^{\infty}\frac{1}{2k+1}\cdot\frac{\Gamma(k+1)\Gamma(1/2)}{\Gamma(k+3/2)}. \end{aligned} $$
+
+        However, noting that $\Gamma(1/2)=\sqrt{\pi}$, that $k$ is a non-negative integer, and that the gamma function satisfies the recurrence $\Gamma(x+1)=x\Gamma(x)$ we can greatly simplify $I$ and ultimately relate it to $S$:
+
+        $$\begin{aligned} I &= 2\sum_{k=0}^{\infty}\frac{4^k(k!)^2}{(2k+1)^2(2k)!} 
+        \\ &= 2S. \end{aligned} $$
+
+        Great. Now what? We again start with
+
+        $$ I = \int_{0}^{1}\frac{\ln\left(\frac{1+x}{1-x}\right)}{\sqrt{1-x^2}} \, \mathrm dx, $$
+
+        but this time we take a different path through the mathematical forest. First, we substitute $u = \frac{1+x}{1-x}$:
+
+        $$\begin{aligned} I &= \int_{1}^{\infty}\frac{\ln(u)}{\sqrt{\left(1-\frac{u-1}{u+1}\right)\left(1+\frac{u-1}{u+1}\right)}}\cdot\frac{2}{(u+1)^2} \, \mathrm du 
+        \\ &= \int_{1}^{\infty}\frac{\ln(u)}{\sqrt{u}(u+1)} \, \mathrm du, \end{aligned} $$
+
+        then $u=\frac{1}{s^2}$:
+
+        $$\begin{aligned} I &= \int_{1}^{0} \frac{\ln\left(\frac{1}{s^2}\right)}{\left(\frac{1}{s}\right)\left(\frac{1}{s^2}+1\right)} \cdot -\frac{2}{s^3} \, \mathrm ds 
+        \\ &= -4\int_{0}^{1}\frac{\ln(s)}{s^2+1} \, \mathrm ds 
+        \\ &= 4G, \end{aligned} $$
+
+        where $G$ is Catalan’s constant coming from its most well known integral identity. <br><br>
+
+        Therefore, by following $2$ different paths through the mathematical forest we have found both that
+
+        $$ I = 2S = 4G, $$
+
+        and so we solve for $S$ to conclude that
+
+        $$ \mathcal{S} = \sum_{k=0}^{\infty}\frac{4^k(k!)^2}{(2k+1)^2(2k)!} = 2G. $$
+
+              
+
+            
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
