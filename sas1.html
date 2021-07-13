@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 </head>
   <body>
     <div class="grid-container3">
@@ -26,19 +34,19 @@ for some fixed $m > 0$?
             We start by mentioning $4$ important results that will be used throughout this answer.
             For integers $a>-1$ and $b>0$,
 
-            $$  \int_{0}^{1}x^a\ln^{b-1}x \, \mathrm dx = \frac{(-1)^{b-1}}{(a+1)^b}\Gamma(b),$$
+            $$  \int_{0}^{1}x^a\ln^{b-1}x \, \mathrm dx = \frac{(-1)^{b-1}}{(a+1)^b}\Gamma(b), \tag{A.}$$
 
             where $\Gamma(b)$ references the gamma function. Also,
 
-            $$\displaystyle \int_{0}^{1}\frac{\ln^{b-1}x}{x^2+1} \, \mathrm dx = (-1)^{b-1}\Gamma(b)\beta(b),$$
+            $$\displaystyle \int_{0}^{1}\frac{\ln^{b-1}x}{x^2+1} \, \mathrm dx = (-1)^{b-1}\Gamma(b)\beta(b), \tag{B.}$$
 
             where $\beta(b)$ references the Dirichlet beta function. In a similar fashion,
 
-            $$ \int_{0}^{1}\frac{x\ln^{b-1}x}{x^2+1} \, \mathrm dx = \frac{(-1)^{b-1}}{2^b}\Gamma(b)\eta(b), $$
+            $$ \int_{0}^{1}\frac{x\ln^{b-1}x}{x^2+1} \, \mathrm dx = \frac{(-1)^{b-1}}{2^b}\Gamma(b)\eta(b), \tag{C.}$$
 
             where $\eta(b)$ references the Dirichlet eta function. Finally, there is an integral identity for the polylogarithm:
 
-            $$ \int_{0}^{1}\frac{x\ln^{b-1}t}{xt+1} \, \mathrm dt = (-1)^b\Gamma(b)\mathrm{Li}_{b}(-x). $$
+            $$ \int_{0}^{1}\frac{x\ln^{b-1}t}{xt+1} \, \mathrm dt = (-1)^b\Gamma(b)\mathrm{Li}_{b}(-x). \tag{D.}$$
 
             These results are rather straightforward to derive via geometric series and gamma function.
             </p>

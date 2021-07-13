@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Plotting Practice</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ I_{n} = \int_{0}^{2\pi}\ln(1+\cos x)\cos(nx) \, \mathrm dx $$
+for $n = 1,2,3\ldots$?
+</p>
+        </div>
+        <div class="grid-item3">
+            For $n = 1,2,3\ldots$, we want to evaluate the integral
+
+            $$I_{n} = \int_{0}^{2\pi}\ln(1+\cos x)\cos(nx) \, \mathrm dx.$$
+            
+            We will initially apply integration by parts with $u=\ln(1+\cos x)$ to neutralize the logarithm:
+
+            $$ I_{n} = \frac{1}{n}\int_{0}^{2\pi}\frac{\sin x\sin(nx)}{1+\cos x} \, \mathrm dx = \frac{1}{n}\int_{0}^{2\pi}\tan\left(\frac{x}{2}\right)\sin(nx) \, \mathrm dx. $$
+
+            Now, note that
+
+            $$ \tan z = -i + \frac{2i}{1+e^{2iz}}, $$
+
+            and so letting $z=x/2$ in the above gives
+
+            $$\begin{aligned} I_{n} &= \frac{1}{n}\int_{0}^{2\pi}\left(-i + \frac{2i}{1+e^{ix}}\right)\sin(nx) \, \mathrm dx 
+            \\ &= \frac{1}{n}\left[-i\int_{0}^{2\pi}\sin(nx) \, \mathrm dx + 2i\int_{0}^{2\pi}\frac{\sin(nx)}{1+e^{ix}} \, \mathrm dx\right]. \end{aligned}$$
+
+            However, by orthogonality,
+
+            $$ \int_{0}^{2\pi}\sin(nx) \, \mathrm dx = 0 $$
+
+            We carefully apply the geometric series to the remaining integral:
+
+            $$\begin{aligned} \int_{0}^{2\pi}\frac{\sin(nx)}{1+e^{ix}} \, \mathrm dx &= \int_{0}^{2\pi}\sin(nx)\sum_{k=0}^{\infty}(-1)^ke^{ikx} \, \mathrm dx 
+            \\ &= \sum_{\substack{k=0 \\ k \neq n}}^{\infty}(-1)^k\int_{0}^{2\pi}\sin(nx)e^{ikx} \, \mathrm dx + (-1)^n\int_{0}^{2\pi}\sin(nx)e^{inx} \, \mathrm dx . \end{aligned}$$
+
+            However, again by orthogonality,
+
+            $$ \sum_{\substack{k=0 \\ k \neq n}}^{\infty}(-1)^k\int_{0}^{2\pi}\sin(nx)e^{ikx} \, \mathrm dx = 0 $$
+
+            and 
+
+            $$ \int_{0}^{2\pi}\sin(nx)e^{inx} \, \mathrm dx = i\pi. $$
+            
+            Putting this all together, we conclude that
+
+            $$ I_{n} = (-1)^{n+1}\frac{2\pi}{n}. $$
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

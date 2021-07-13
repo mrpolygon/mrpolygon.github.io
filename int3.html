@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Plotting Practice</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+How can I evaluate 
+$$ \int_{0}^{\infty}\frac{\ln\left(a^2x^2+1\right)}{b^2x^2+1} \, \mathrm dx $$
+for $a \geq 0$ and $b>0$?
+</p>
+        </div>
+        <div class="grid-item3">
+            Fix $b>0$ and consider the integral parameterized by $a \geq 0$:
+
+            $$\displaystyle I(a) = \int_{0}^{\infty}\frac{\ln\left(a^2x^2+1\right)}{b^2x^2+1} \, \mathrm dx. $$
+
+            Differentiating both sides with respect to $a$, applying partial fractions, and evaluating the integral gives
+
+            $$\begin{aligned} I'(a) &= 2a\int_{0}^{\infty}\frac{x^2}{\left(a^2x^2+1\right)\left(b^2x^2+1\right)} \, \mathrm dx 
+            \\ &= \frac{2a}{a^2-b^2}\int_{0}^{\infty}\left(\frac{1}{b^2x^2+1} - \frac{1}{a^2x^2+1}\right) \, \mathrm dx 
+            \\ &= \frac{2a}{a^2-b^2}\left(\frac{1}{b}\arctan(bx) - \frac{1}{a}\arctan(ax)\right)\Bigg|_{x=0}^{x\to\infty} 
+            \\ &= \frac{2a}{a^2-b^2}\cdot \frac{\pi}{2}\left(\frac{1}{b}-\frac{1}{a}\right) \\ &= \frac{\pi}{b(a+b)}. \end{aligned} $$
+
+            Now, we integrate both sides of the above from $0$ to $a$:
+
+            $$\begin{aligned} I(a) - I(0) &= \frac{\pi}{b}\int_{0}^{a}\frac{1}{t+b} \, \mathrm dt 
+            \\ &= \frac{\pi}{b}\ln(t+b)\Bigg|_{t=0}^{t=a} 
+            \\ &= \frac{\pi}{b}\ln\left(\frac{a+b}{b}\right). \end{aligned} $$
+
+            Since $I(0)=0$, we conclude that
+
+            $$ \int_{0}^{\infty}\frac{\ln\left(a^2x^2+1\right)}{b^2x^2+1} \, \mathrm dx = \frac{\pi}{b}\ln\left(\frac{a+b}{b}\right). $$
+
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
