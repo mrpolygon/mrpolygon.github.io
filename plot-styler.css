@@ -21,7 +21,14 @@ label {
   .grid-container2 {
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 450px 450px;
+    grid-template-rows: 60px 840px;
+    background-color: #2196F3;
+    padding: 10px;
+  }
+  .grid-container3 {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto;
     background-color: #2196F3;
     padding: 10px;
   }
@@ -35,9 +42,16 @@ label {
   .grid-item2 {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 112px;
+    padding: 1px;
     font-size: 40px;
     text-align: center;
+  }
+  .grid-item3 {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    font-size: 20px;
+    text-align: left;
   }
   .slidecontainer {
     width: 100%; /* Width of the outside container */

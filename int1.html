@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Plotting Practice</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \int_{0}^{1}\frac{x\ln\left(\frac{1+x}{1-x}\right)}{x^2+3} \, \mathrm dx? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            <p>
+                We want to evaluate
+
+$$ I = \int_{0}^{1}\frac{x\ln\left(\frac{1+x}{1-x}\right)}{x^2+3} \, \mathrm dx. $$
+
+To make this as simple as possible, we first quickly evaluate (for $a>-1$):
+
+$$\begin{aligned} J(a) &= \int_{0}^{1}t^a\ln t \, \mathrm dt 
+\\ &= -\int_{0}^{\infty}we^{-(a+1)w} \, \mathrm dw, \, \text{via } w=-\ln t 
+\\ &= -\frac{1}{(a+1)^2}\int_{0}^{\infty}se^{-s} \, \mathrm ds, \, \text{via } s = (a+1)w 
+\\ &= -\frac{1}{(a+1)^2}, \, \text{via gamma function.} \end{aligned} $$
+
+Now to the integral in question. First we apply the interval inverting substitution $x = \frac{1-t}{1+t}$ or equivalently $t = \frac{1-x}{1+x}$:
+
+$$\begin{aligned} I &= \int_{1}^{0}\frac{\left(\frac{1-t}{1+t}\right)\ln(1/t)}{\left(\frac{1-t}{1+t}\right)^2+3} \cdot \frac{-2}{(1+t)^2}\, \mathrm dt 
+\\ &= \frac{1}{2}\int_{0}^{1}\frac{(t-1)\ln t}{(t+1)(t^2+t+1)}\, \mathrm dt, \, \text{simplifying} 
+\\ &= \frac{1}{2}\int_{0}^{1}\frac{(2t+1)\ln t}{t^2+t+1} \, \mathrm dt - \int_{0}^{1}\frac{\ln t}{t+1} \, \mathrm dt, \, \text{partial fractions.} \end{aligned} $$
+
+Let 
+
+$$\begin{aligned} I_{1} &= \int_{0}^{1}\frac{(2t+1)\ln t}{t^2+t+1} \, \mathrm dt 
+\\ I_{2} &= \int_{0}^{1}\frac{\ln t}{t+1} \, \mathrm dt. \end{aligned} $$
+
+We work $I_{1}$. By multiplying the numerator and denominator by $1-t$ then applying geometric series, we yield
+
+$$\begin{aligned} I_{1} &= \int_{0}^{1}\frac{\left(1+t-2t^2\right)\ln t}{1-t^3} \, \mathrm dt 
+\\ &= \sum_{k=0}^{\infty}\int_{0}^{1}\left(t^{3k}+t^{3k+1}-2t^{3k+2}\right) \ln t \, \mathrm dt 
+\\ &= \sum_{k=0}^{\infty}\left[J(3k)+J(3k+1)-2J(3k+2)\right] 
+\\ &= - \sum_{k=0}^{\infty}\left[\frac{1}{(3k+1)^2} + \frac{1}{(3k+2)^2}\right] + 2\sum_{k=0}^{\infty}\frac{1}{(3k+3)^2}, \end{aligned} $$
+
+where clearly
+
+$$ \sum_{k=0}^{\infty}\frac{1}{(3k+3)^2} = \frac{1}{9}\zeta(2). $$
+
+
+To evaluate the remaining series, consider that
+
+$$\sum_{k=0}^{\infty}\left[\frac{1}{(3k+1)^2} + \frac{1}{(3k+2)^2}+\frac{1}{(3k+3)^2}\right] = \zeta(2), $$
+
+or isolating the sum in question,
+
+$$\begin{aligned} \sum_{k=0}^{\infty}\left[\frac{1}{(3k+1)^2} + \frac{1}{(3k+2)^2}\right] &= \zeta(2)-\sum_{k=0}^{\infty}\frac{1}{(3k+3)^2} 
+\\ &= \zeta(2) - \frac{1}{9}\zeta(2) 
+\\ &= \frac{8}{9}\zeta(2). \end{aligned} $$
+
+Therefore, assembling our results, we have
+
+$$ I_{1} = -\frac{2}{3}\zeta(2). $$
+
+We work $I_{2}$. We have by geometric series
+
+$$\begin{aligned} I_{2} &= \sum_{k=0}^{\infty}(-1)^k\int_{0}^{1}t^k\ln t \, \mathrm dt 
+\\ &= \sum_{k=0}^{\infty}(-1)^kJ(k) 
+\\ &= -\sum_{k=0}^{\infty}\frac{(-1)^k}{(k+1)^2} 
+\\ &= -\frac{1}{1^2}+\frac{1}{2^2}-\frac{1}{3^2}+\frac{1}{4^2} \cdots 
+\\ &= -\sum_{k=1}^{\infty}\frac{1}{k^2} + 2\sum_{k=1}^{\infty}\frac{1}{(2k)^2} 
+\\ &= -\frac{1}{2}\zeta(2). \end{aligned} $$
+
+Since $I = \frac{1}{2}I_{1} - I_{2}$, we conclude that
+
+$$ I = \int_{0}^{1}\frac{x\ln\left(\frac{1+x}{1-x}\right)}{x^2+3} \, \mathrm dx = \frac{1}{6}\zeta(2) = \frac{\pi^2}{36}. $$
+            </p>
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Plotting Practice</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{k=1}^{\infty}\sum_{n=1}^{\infty}\frac{(-1)^{k+n}}{k^m(k+2n-1)^m} $$
+for some fixed $m > 0$?
+</p>
+        </div>
+        <div class="grid-item3">
+            <p>
+            We start by mentioning $4$ important results that will be used throughout this answer.
+            For integers $a>-1$ and $b>0$,
+
+            $$  \int_{0}^{1}x^a\ln^{b-1}x \, \mathrm dx = \frac{(-1)^{b-1}}{(a+1)^b}\Gamma(b),$$
+
+            where $\Gamma(b)$ references the gamma function. Also,
+
+            $$\displaystyle \int_{0}^{1}\frac{\ln^{b-1}x}{x^2+1} \, \mathrm dx = (-1)^{b-1}\Gamma(b)\beta(b),$$
+
+            where $\beta(b)$ references the Dirichlet beta function. In a similar fashion,
+
+            $$ \int_{0}^{1}\frac{x\ln^{b-1}x}{x^2+1} \, \mathrm dx = \frac{(-1)^{b-1}}{2^b}\Gamma(b)\eta(b), $$
+
+            where $\eta(b)$ references the Dirichlet eta function. Finally, there is an integral identity for the polylogarithm:
+
+            $$ \int_{0}^{1}\frac{x\ln^{b-1}t}{xt+1} \, \mathrm dt = (-1)^b\Gamma(b)\mathrm{Li}_{b}(-x). $$
+
+            These results are rather straightforward to derive via geometric series and gamma function.
+            </p>
+        </div>
+        <div class="grid-item3">
+            <p>
+            Now, we want to evaluate the double sum for some fixed integer $m > 0$:
+
+            $$ S = \sum_{k=1}^{\infty}\sum_{n=1}^{\infty}\frac{(-1)^{k+n}}{k^m(k+2n-1)^m}. $$
+
+            Using <strong>(A.)</strong>, interchanging the order of summation and integration, and applying geometric series and definition of polylogarithm, we obtain
+
+            $$\begin{aligned} S &= \sum_{k=1}^{\infty}\sum_{n=1}^{\infty}\frac{(-1)^{k+n}}{k^m}\left(\frac{(-1)^{m-1}}{\Gamma(m)}\int_{0}^{1}x^{k+2n-2}\ln^{m-1}x \, \mathrm dx\right) 
+            \\ &= \frac{(-1)^{m-1}}{\Gamma(m)}\int_{0}^{1}\ln^{m-1}x\left(\sum_{k=1}^{\infty}\frac{(-x)^k}{k^m}\right)\left(\sum_{n=1}^{\infty}(-1)^nx^{2n-2}\right) \, \mathrm dx 
+            \\ &= \frac{(-1)^{m-1}}{\Gamma(m)}\int_{0}^{1}\ln^{m-1}x\bigg(\mathrm{Li}_{m}(-x)\bigg)\left(-\frac{1}{x^2+1}\right) \, \mathrm dx 
+            \\ &= \frac{(-1)^m}{\Gamma(m)}\int_{0}^{1}\frac{\ln^{m-1}x\mathrm{Li}_{m}(-x)}{x^2+1} \, \mathrm dx. \end{aligned}$$
+            
+            From here, we use <strong>(D.)</strong> and interchange the order of integration:
+            $$\begin{aligned} S &= \frac{(-1)^m}{\Gamma(m)}\int_{0}^{1}\frac{\ln^{m-1}x}{x^2+1} \left(\frac{(-1)^m}{\Gamma(m)}\int_{0}^{1}\frac{x\ln^{m-1}t}{xt+1} \, \mathrm dt\right) \, \mathrm dx 
+            \\ &= \frac{1}{\Gamma^2(m)}\int_{0}^{1}\ln^{m-1}t\int_{0}^{1}\frac{x\ln^{m-1}x}{\left(x^2+1\right)(xt+1)} \, \mathrm dx \, \mathrm dt. \end{aligned} $$
+
+            We decompose the inner integral into partial fractions and apply <strong>(B.)</strong>, <strong>(C.)</strong>, and <strong>(D.)</strong> to evaluate the integral:
+
+            $$\begin{aligned} &\int_{0}^{1}\frac{x\ln^{m-1}x}{\left(x^2+1\right)(xt+1)} \, \mathrm dx 
+            \\ &= \frac{1}{t^2+1}\left[\int_{0}^{1}\frac{(t+x)\ln^{m-1}x}{x^2+1} \, \mathrm dx - \int_{0}^{1}\frac{t\ln^{m-1}x}{xt+1} \, \mathrm dx\right] 
+            \\ &= \frac{1}{t^2+1}\left[(-1)^{m-1}\Gamma(m)\beta(m)t + \frac{(-1)^{m-1}}{2^m}\Gamma(m)\eta(m) - (-1)^m\Gamma(m)\mathrm{Li}_{m}(-t)\right] 
+            \\ &= \frac{(-1)^{m-1}\Gamma(m)}{t^2+1}\left[\beta(m)t + \frac{1}{2^m}\eta(m) + \mathrm{Li}_{m}(-t)\right]. \end{aligned} $$
+
+            Therefore, using <strong>(B.)</strong> and <strong>(C.)</strong> again,
+
+            $$\begin{aligned} S &= \frac{(-1)^{m-1}}{\Gamma(m)}\int_{0}^{1}\frac{\ln^{m-1}t}{t^2+1}\left(\beta(m)t + \frac{1}{2^m}\eta(m) + \mathrm{Li}_{m}(-t)\right) \, \mathrm dt 
+            \\ &= (-1)^{m-1}\frac{\beta(m)}{\Gamma(m)}\int_{0}^{1}\frac{t\ln^{m-1}t}{t^2+1} \, \mathrm dt + \frac{(-1)^{m-1}}{2^m}\frac{\eta(m)}{\Gamma(m)}\int_{0}^{1}\frac{\ln^{m-1}t}{t^2+1} \, \mathrm dt - S 
+            \\ 2S &= (-1)^{m-1}\frac{\beta(m)}{\Gamma(m)}\cdot \frac{(-1)^{m-1}}{2^m}\Gamma(m)\eta(m) + \frac{(-1)^{m-1}}{2^m}\frac{\eta(m)}{\Gamma(m)}\cdot (-1)^{m-1}\Gamma(m)\beta(m) 
+            \\ S &= \frac{1}{2^m}\beta(m)\eta(m) \end{aligned} $$
+
+            We beautifully conclude that
+
+            $$\sum_{k=1}^{\infty}\sum_{n=1}^{\infty}\frac{(-1)^{k+n}}{k^m(k+2n-1)^m} = \frac{1}{2^m}\beta(m)\eta(m). $$
+
+            It turns out this solution can be analytically continued to all real $m>0$. A proof of this is left to the interested reader.
+
+
+            </p>
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>

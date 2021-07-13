@@ -8,13 +8,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
-  </head>
+</head>
   <body>
-    <div>
-    <span>$$ \beta(m)\eta(m) = 2^m\sum_{k=1}^{\infty}\sum_{m=1}^{\infty}\frac{(-1)^{k+n}}{k^m(k+2n-1)^m} $$</span>
+    <div class="grid-container2">
+        <div class="grid-item2">
+            Integrals
+        </div>
+        <div class="grid-item2">
+            Sums and Series
+        </div>
+        <div class="grid-item2">
+        <a href="int1.html" style="font-size: 20px"> $$ \int_{0}^{1}\frac{x\ln\left(\frac{1+x}{1-x}\right)}{x^2+3} \, \mathrm dx $$ </a>         
+        </div>
+        <div class="grid-item2">
+            <a href="sas1.html" style="font-size: 20px"> $$ \sum_{k=1}^{\infty}\sum_{n=1}^{\infty}\frac{(-1)^{k+n}}{k^m(k+2n-1)^m} $$ </a>         
+        </div>
     </div>
 </body>
   <script>
     renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
 </script>
 </html>
