@@ -2,118 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Plotting Practice</title>
+    <title>Dashboard</title>
     <link href="plot-styler.css" rel="stylesheet">
-    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
   </head>
   <body>
-    <div class="grid-container">
-        <div class="grid-item">
-            <div id="tester" class="plotresize"></div>
-        </div>
-        <div class="grid-item">
-            <p>Initial Harmonics</p>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei1">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei2">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei3">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei4">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei5">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei6">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangei7">
-            </div>
-        </div>  
-        <div class="grid-item">
-            <p>Final Harmonics</p>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef1">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef2">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef3">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef4">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef5">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef6">
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider" id="myRangef7">
-            </div>
-        </div>  
-        <div class="grid-item">
-            <p>ADSR</p>
-                <div class="slidecontainer">
-                     <!--label for="attack">A:</label-->
-                     <input type="range" min="1" max="100" value="10" class="slider" id="attack">
-                </div>
-                <div class="slidecontainer">
-                    <!--label for="decay">Df:</label-->
-                    <input type="range" min="1" max="100" value="50" class="slider" id="decay">
-                </div>
-                <div class="slidecontainer">
-                    <!--label for="decays">Ds:</label-->
-                    <input type="range" min="1" max="100" value="50" class="slider" id="decays">
-                </div>
-                <div class="slidecontainer">
-                    <!--label for="sustain">S:</label-->
-                    <input type="range" min="1" max="300" value="50" class="slider" id="sustain">
-                </div>
-                <div class="slidecontainer">
-                    <!--label for="release">R:</label-->
-                    <input type="range" min="1" max="300" value="50" class="slider" id="release">
-                </div>
-        </div>
-        <div class="grid-item">
-            <div id="tester2" class="plotresize"></div>
-        </div>
-        <div class="grid-item">
-            <label for="ff">Fundamental frequency:</label>
-            <input type="text" class="buttonsize" id="ff" value=200> 
-            <label for="ff">Chorus:</label>
-            <input type="text" class="buttonsize" id="chor" value=0>
-            <label for="rand">Randomize:</label>
-            <input type="text" class="buttonsize" id="rand" value=0>
-            <label for="AMs">AM strength:</label>
-            <input type="text" class="buttonsize" id="AMs" value=0>
-            <label for="AMf">AM frequency:</label>
-            <input type="text" class="buttonsize" id="AMf" value=0>
-            <label for="FMs">FM strength:</label>
-            <input type="text" class="buttonsize" id="FMs" value=0>
-            <label for="FMf">FM frequency:</label>
-            <input type="text" class="buttonsize" id="FMf" value=0>
-        </div>
-        <div class="grid-item">
-            <p>Pre-builts</p>
-            <input type="button" class="buttonsize" onclick="data('bell')" value="Bell"> 
-            <input type="button" class="buttonsize" onclick="data('spooky')" value="Spooky"> 
-            <input type="button" class="buttonsize" onclick="data('whistle')" value="Whistle"> 
-        </div>
-        <div class="grid-item">
-            <p>Options</p>
-            <input type="button" class="buttonsize" onclick="[x , audio] = createsinwave(Fs)" value="Create"> <br>
-            
-            <input type="button" class="buttonsize" onclick="playsound(audio,Fs)" value="Play"> 
-        </div>
-    </div>
-    <script src="plot-funcs.js"></script>
-    </body>
+<ul>
+    <li><a href="plot-dash.html">Additive Synthesizer</a></li>
+    <li><a href="math.html">Math World</a></li>
+</ul>
+</body>
 </html>
