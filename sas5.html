@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sums and Series</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{k=1}^{\infty}\frac{1}{k(3k+1)}? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            
+            We want to evaluate the infinite sum
+
+            $$ \mathcal{I} = \sum_{k=1}^{\infty}\frac{1}{k(3k+1)}. $$
+
+            First, we relate the value of the sum in question to a dummy value $\mathcal{J}$:
+
+            $$ \mathcal{J} = 1-\mathcal{I}, $$ 
+
+            where our goal will be to first find $\mathcal{J}$.
+            
+            Since by the well known telescoping series:
+
+            $$ \sum_{k=1}^{\infty} \frac{1}{k(k+1)} = 1, $$
+
+            we may unconventionally rewrite $\mathcal{J}$ as
+
+            $$ \mathcal{J} = \sum_{k=1}^{\infty}\left(\frac{1}{k(k+1)} - \frac{1}{k(3k+1)}\right), $$
+
+            then incorporate an integral into the sum:
+
+            $$ \mathcal{J} = \sum_{k=1}^{\infty}\int_{0}^{1}\left(\frac{x^k}{k} - \frac{x^{3k}}{k}\right)\,\mathrm dx. $$
+
+            We now interchange the order of the sum and integral:
+
+            $$ \mathcal{J} = \int_{0}^{1}\left(\sum_{k=1}^{\infty}\frac{x^k}{k}-\sum_{k=1}^{\infty}\frac{x^{3k}}{k}\right)\,\mathrm dx, $$
+
+            and notice that both sums are in the form of the Maclaurin series for the natural log. Therefore, we may write
+
+            $$ \mathcal{J} = \int_{0}^{1}\left(\ln\left(1-x^3\right)-\ln(1-x)\right)\,\mathrm dx, $$
+
+            then combine the natural logs as
+
+            $$ \mathcal{J} = \int_{0}^{1}\ln\left(\frac{1-x^3}{1-x}\right)\,\mathrm dx, $$
+
+            and since
+
+            $$ 1+x+x^2 = \frac{1-x^3}{1-x}, $$
+
+            applying this gives
+
+            $$ \mathcal{J} = \int_{0}^{1}\ln\left(1+x+x^2\right)\,\mathrm dx. $$
+
+            It remains to evaluate the lone integral.
+            
+            First, we apply integration by parts with $u=\ln(1+x+x^2)$ and $\mathrm dv = \mathrm dx$. This gives
+
+            $$ \mathcal{J} = \underbrace{x\ln\left(1+x+x^2\right)\Bigg|_{0}^{1}}_{=\ln 3} - \int_{0}^{1}\frac{x+2x^2}{1+x+x^2}\, \mathrm dx. $$
+
+            We proceed by performing long division:
+
+            $$ \int_{0}^{1}\frac{x+2x^2}{1+x+x^2}\, \mathrm dx = \underbrace{\int_{0}^{1}2\,\mathrm dx}_{=2} - \int_{0}^{1}\frac{2+x}{1+x+x^2}\,\mathrm dx, $$
+
+            and then rewrite:
+
+            $$ \int_{0}^{1}\frac{2+x}{1+x+x^2}\,\mathrm dx = \frac{1}{2}\int_{0}^{1}\frac{1+2x}{1+x+x^2}\,\mathrm dx + \frac{3}{2}\int_{0}^{1}\frac{1}{1+x+x^2} \, \mathrm dx. $$
+
+            For the first integral, let $t=1+x+x^2$ to easily give
+
+            $$ \int_{0}^{1}\frac{1+2x}{1+x+x^2}\,\mathrm dx = \int_{1}^{3}\frac{1}{t}\,\mathrm dt = \ln(t)\Bigg|_{1}^{3} = \ln 3. $$
+
+            For the latter integral, we complete the square then let $t=x+\frac{1}{2}$:
+
+            $$ \begin{aligned} \int_{0}^{1}\frac{1}{1+x+x^2} \, \mathrm dx &= \int_{0}^{1}\frac{1}{\frac{3}{4}+\left(x+\frac{1}{2}\right)^2} \, \mathrm dx 
+            \\ &= \int_{1/2}^{3/2}\frac{1}{\frac{3}{4}+t^2} \, \mathrm dt 
+            \\ &= \frac{2}{\sqrt{3}}\arctan\left(\frac{2t}{\sqrt{3}}\right)\Bigg|_{1/2}^{3/2} 
+            \\ &= \frac{\pi}{3\sqrt{3}} \end{aligned} $$
+
+            Putting it altogether yields
+
+            $$ \mathcal{J} = \frac{3}{2}\ln 3 + \frac{\pi}{2\sqrt{3}} - 2. $$
+            
+            Finally, we conclude that
+
+            $$ \mathcal{I} = \sum_{k=1}^{\infty}\frac{1}{k(3k+1)} = 1-\mathcal{J} = 3 - \frac{3}{2}\ln 3 - \frac{\pi}{2\sqrt{3}}. $$
+            
+        </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>

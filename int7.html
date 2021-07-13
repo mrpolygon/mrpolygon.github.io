@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \int_{0}^{\pi/2}\ln \sin x \, \mathrm dx? $$
+</p>
+        </div>
+        <div class="grid-item3">
+
+            We want to evaluate the integral
+
+            $$ J = \int_{0}^{\pi/2}\ln \sin x \, \mathrm dx. $$
+
+            Here is a nifty approach that uses differentiation under the integral sign.<br><br>
+            
+            First we integrate by parts with $u=\ln \sin x$ and $\mathrm dv = \mathrm dx$:
+
+            $$ J = x\ln \sin x \Bigg|_{0}^{\pi/2} - \int_{0}^{\pi/2}x\cot x \, \mathrm dx = - \int_{0}^{\pi/2}\frac{x}{\tan x} \, \mathrm dx, $$
+
+            then we let $t=\tan x$ or equivalently $x=\arctan t$:
+
+            $$ J = -\int_{0}^{\infty}\frac{\arctan t}{t\left(t^2+1\right)} \, \mathrm dt. $$
+            
+            Now, consider the related integral parameterized by $a\geq 0$:
+
+            $$ I(a) = \int_{0}^{\infty}\frac{\arctan at}{t\left(t^2+1\right)} \, \mathrm dt, $$
+
+            where differentiating under the integral sign with respect to $a$ yields
+
+            $$\begin{aligned} I'(a) &= \int_{0}^{\infty}\frac{\partial}{\partial a}\frac{\arctan at}{t\left(t^2+1\right)} \, \mathrm dt 
+            \\ &= \int_{0}^{\infty}\frac{1}{\left(a^2t^2+1\right)\left(t^2+1\right)} \, \mathrm dt. \end{aligned} $$
+
+            By partial fractions, we obtain easily evaluable integrals:
+
+            $$\begin{aligned} I'(a) &= \frac{1}{a^2-1}\int_{0}^{\infty}\left(\frac{a^2}{a^2t^2+1} - \frac{1}{t^2+1} \right) \, \mathrm dt 
+            \\ &= \frac{1}{a^2-1}\left(\frac{\pi a}{2} - \frac{\pi}{2}\right) 
+            \\ &= \frac{\pi}{2}\cdot \frac{1}{a+1}. \end{aligned} $$
+
+            Further integrating $I'(a)$ with respect to $a$ easily yields
+
+            $$ I(a) = \frac{\pi}{2}\int\frac{1}{a+1} \, \mathrm da = \frac{\pi}{2}\ln(a+1) + C, $$
+
+            where the constant $C = 0$ is recovered by noting that $I(0) = 0$.
+            
+            Finally, $J = -I(1) = -\frac{\pi}{2}\ln 2$ and so we conclude that
+
+            $$ \int_{0}^{\pi/2}\ln \sin x \, \mathrm dx = -\frac{\pi}{2}\ln 2. $$
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

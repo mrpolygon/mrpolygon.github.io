@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sums and Series</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{n=0}^{\infty}(-1)^{n+1}\frac{\ln(2n+1)}{2n+1}? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            
+            We want to find the value of
+
+            $$ \beta'(1) = \sum_{n=0}^{\infty}(-1)^{n+1}\frac{\ln(2n+1)}{2n+1}. $$
+
+            where $\beta'(1)$ references the derivative of the Dirichlet beta function.
+            
+            We start rather distantly by first finding the Fourier series of $\ln \Gamma(x)$ over $0 < x < 1$:
+
+            $$ \ln \Gamma(x) = a_{0} + \sum_{n=1}^{\infty}\bigg(a_{n}\cos(2\pi n x) + b_{n}\sin(2\pi nx)\bigg). $$
+
+            We compute the Fourier coefficients. <br> <br>
+            
+            For $a_{0}$, we have
+
+            $$\begin{aligned} a_{0} &= \int_{0}^{1} \ln \Gamma(x) \, \mathrm dx 
+            \\ &= \int_{0}^{1}\ln \left(\frac{\pi}{\sin(\pi x)\Gamma(1-x)}\right) \, \mathrm dx, \, \text{via gamma reflection} 
+            \\ &= \int_{0}^{1} \ln \pi \, \mathrm dx - \int_{0}^{1}\ln\sin(\pi x) \, \mathrm dx - \underbrace{\int_{0}^{1}\ln\Gamma(1-x) \, \mathrm dx}_{=a_{0}, \text{ via } t=1-x} 
+            \\ &= \frac{1}{2}\left(\ln \pi - \int_{0}^{1}\ln\sin(\pi x) \, \mathrm dx \right) \end{aligned} $$
+
+            However,
+
+            $$\begin{aligned} \int_{0}^{1}\ln\sin(\pi x) \, \mathrm dx &= \frac{1}{\pi}\int_{0}^{\pi} \ln \sin t \, \mathrm dt, \, \text{via } t = \pi x 
+            \\ &= \frac{2}{\pi}\underbrace{\int_{0}^{\pi/2}\ln \sin t \, \mathrm dt}_{=-\frac{\pi}{2}\ln 2}, \, \text{via symmetry} 
+            \\ &= -\ln 2. \end{aligned} $$
+
+            where the underbraced result is notorious and has been evaluated many times, for instance <a href="int7.html">here</a> .
+            
+            Therefore,
+            $$ a_{0} = \frac{1}{2}\ln(2\pi). $$
+            
+            For $a_{n}$, we start similarly:
+
+            $$\begin{aligned} a_{n} &= 2\int_{0}^{1}\ln \Gamma(x) \cos(2\pi n x) \, \mathrm dx 
+            \\ &= 2\int_{0}^{1}\ln\left(\frac{\pi}{\sin(\pi x)\Gamma(1-x)}\right)\cos(2\pi n x) \, \mathrm dx, \, \text{via gamma reflection} 
+            \\ &= 2\bigg(\underbrace{\int_{0}^{1} \ln \pi \cos(2\pi n x) \, \mathrm dx}_{=0, \text{ orthogonality}} - \int_{0}^{1}\ln \sin (\pi x) \cos(2\pi nx) \, \mathrm dx - \underbrace{\int_{0}^{1}\ln\Gamma(1-x) \cos(2\pi n x) \, \mathrm dx}_{=a_{n}, \text{ via } t=1-x}\bigg) 
+            \\ &= - \int_{0}^{1}\ln \sin (\pi x) \cos(2\pi nx) \, \mathrm dx 
+            \\ &= -\frac{1}{\pi}\int_{0}^{\pi}\ln \sin t \cos(2nt) \, \mathrm dt, \, \text{via }t=\pi x 
+            \\ &= \frac{1}{2\pi n}\int_{0}^{\pi} \cot t \sin(2nt) \, \mathrm dt,\, \text{via integration by parts.} \end{aligned} $$
+
+            Noting the algebraic identity
+            $$ \cot t = i - \frac{2i}{1-e^{2it}}, $$
+
+            we thus obtain
+
+            $$\begin{aligned} a_{n} &= \frac{1}{2\pi n}\int_{0}^{\pi} \left(i - \frac{2i}{1-e^{2it}}\right) \sin(2nt) \, \mathrm dt 
+            \\ &= \frac{1}{2\pi n}\left[i\underbrace{\int_{0}^{\pi}\sin(2nt) \, \mathrm dt}_{=0, \text{ orthogonality}} - 2i\int_{0}^{\pi}\frac{\sin(2nt)}{1-e^{2it}} \, \mathrm dt \right].\end{aligned} $$
+
+            We carefully apply the geometric series to the remaining integral:
+
+            $$\begin{aligned} \int_{0}^{\pi}\frac{\sin(2nt)}{1-e^{2it}} \, \mathrm dt &= \int_{0}^{\pi}\sin(2nt)\sum_{k=0}^{\infty}e^{2ikt}\, \mathrm dt 
+            \\ &= \underbrace{\sum_{\substack{k=0 \\ k \neq n}}^{\infty}\int_{0}^{\pi}\sin(2nt)e^{2ikt} \, \mathrm dt}_{=0, \text{ orthogonality}} + \underbrace{\int_{0}^{\pi}\sin(2nt)e^{2int} \, \mathrm dt}_{=\frac{i\pi}{2}, \text{ orthogonality}} 
+            \\ &= \frac{i\pi}{2}. \end{aligned} $$
+
+            Assembling our results,
+
+            $$ a_{n} = \frac{1}{2n}. $$
+            
+            $b_{n}$ has been evaluated <a href="https://math.stackexchange.com/questions/1008732/integral-that-arises-from-the-derivation-of-kummers-fourier-expansion-of-ln">here</a> on StackExchange. Its result is
+
+            $$ b_{n} = 2\int_{0}^{1}\ln \Gamma(x) \sin(2\pi n x) \, \mathrm dx = \frac{\gamma + \ln(2\pi n)}{\pi n}, $$
+
+            where $\gamma$ denotes the Euler-Mascheroni constant.
+            
+            Therefore, we have for $0 < x < 1$:
+
+            $$ \ln \Gamma(x) = \frac{1}{2}\ln(2\pi) + \sum_{n=1}^{\infty}\bigg(\frac{1}{2n}\cos(2\pi n x) + \frac{\gamma + \ln(2\pi n)}{\pi n}\sin(2\pi nx)\bigg). $$
+
+            Now, we choose to evaluate the above at $x=\frac{3}{4}$. That is
+
+            $$\begin{aligned} \ln \Gamma\left(\frac{3}{4}\right) &= \frac{1}{2}\ln(2\pi) + \sum_{n=1}^{\infty}\bigg(\frac{1}{2n}\cos\left(\frac{3\pi n}{2}\right) + \frac{\gamma + \ln(2\pi n)}{\pi n}\sin\left(\frac{3\pi n}{2}\right)\bigg) 
+            \\ &= \frac{1}{2}\ln(2\pi) + \sum_{m=1}^{\infty}\frac{(-1)^m}{2(2m)} + \sum_{m=0}^{\infty}(-1)^{m+1}\frac{\gamma + \ln(2\pi(2m+1))}{\pi(2m+1)} 
+            \\ &= \frac{1}{2}\ln(2\pi) + \frac{1}{4}\underbrace{\sum_{m=1}^{\infty}\frac{(-1)^m}{m}}_{=-\ln 2} + \frac{\gamma + \ln(2\pi)}{\pi}\underbrace{\sum_{m=0}^{\infty}\frac{(-1)^{m+1}}{2m+1}}_{=-\frac{\pi}{4}} + \frac{1}{\pi}\underbrace{\sum_{m=0}^{\infty}(-1)^{m+1}\frac{\ln(2m+1)}{2m+1}}_{=\beta'(1)} 
+            \\ &= \frac{1}{2}\ln(2\pi) - \frac{1}{4}\ln 2 - \frac{\gamma + \ln(2\pi)}{4} + \frac{1}{\pi}\beta'(1), \end{aligned} $$
+
+            and we can solve for $\beta'(1)$ and simplify to conclude that
+
+            $$ \beta'(1) = \pi \ln\Gamma\left(\frac{3}{4}\right) + \frac{\pi\gamma}{4} - \frac{\pi}{4}\ln \pi. $$
+            
+            
+        </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
