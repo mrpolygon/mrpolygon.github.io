@@ -336,11 +336,11 @@ function data(inst){
     else if (inst == 'trumpet'){
         document.getElementById("myRangei1").value = 50;
         document.getElementById("myRangei2").value = 0;
-        document.getElementById("myRangei3").value = 1;
+        document.getElementById("myRangei3").value = 5;
         document.getElementById("myRangei4").value = 0;
-        document.getElementById("myRangei5").value = 1; 
+        document.getElementById("myRangei5").value = 5; 
         document.getElementById("myRangei6").value = 0;
-        document.getElementById("myRangei7").value = 1;
+        document.getElementById("myRangei7").value = 5;
 
         document.getElementById("myRangef1").value = 100;
         document.getElementById("myRangef2").value = 0;
@@ -363,6 +363,68 @@ function data(inst){
         document.getElementById("AMf").value = 3;
         document.getElementById("FMs").value = 4;
         document.getElementById("FMf").value = 402.5;
+    }
+    else if (inst == 'glass'){
+        document.getElementById("myRangei1").value = 0;
+        document.getElementById("myRangei2").value = 5;
+        document.getElementById("myRangei3").value = 0;
+        document.getElementById("myRangei4").value = 5;
+        document.getElementById("myRangei5").value = 0; 
+        document.getElementById("myRangei6").value = 2;
+        document.getElementById("myRangei7").value = 1;
+
+        document.getElementById("myRangef1").value = 0;
+        document.getElementById("myRangef2").value = 40;
+        document.getElementById("myRangef3").value = 0;
+        document.getElementById("myRangef4").value = 0;
+        document.getElementById("myRangef5").value = 0; 
+        document.getElementById("myRangef6").value = 0;
+        document.getElementById("myRangef7").value = 0;
+
+        document.getElementById("ff").value = 600;
+        document.getElementById("chor").value = .1;
+        document.getElementById("rand").value = 6;
+
+        document.getElementById("attack").value = 1;
+        document.getElementById("decay").value = 10;  
+        document.getElementById("decays").value = 100; 
+        document.getElementById("sustain").value = 30;
+        document.getElementById("release").value = 40;
+        document.getElementById("AMs").value = .2;
+        document.getElementById("AMf").value = 1204;
+        document.getElementById("FMs").value = .1;
+        document.getElementById("FMf").value = 602;
+    }
+    else if (inst == 'clarinet'){
+        document.getElementById("myRangei1").value = 100;
+        document.getElementById("myRangei2").value = 0;
+        document.getElementById("myRangei3").value = 0;
+        document.getElementById("myRangei4").value = 0;
+        document.getElementById("myRangei5").value = 0; 
+        document.getElementById("myRangei6").value = 0;
+        document.getElementById("myRangei7").value = 0;
+
+        document.getElementById("myRangef1").value = 100;
+        document.getElementById("myRangef2").value = 0;
+        document.getElementById("myRangef3").value = 0;
+        document.getElementById("myRangef4").value = 0;
+        document.getElementById("myRangef5").value = 0; 
+        document.getElementById("myRangef6").value = 0;
+        document.getElementById("myRangef7").value = 0;
+
+        document.getElementById("ff").value = 200;
+        document.getElementById("chor").value = .1;
+        document.getElementById("rand").value = 0;
+
+        document.getElementById("attack").value = 40;
+        document.getElementById("decay").value = 60;  
+        document.getElementById("decays").value = 90; 
+        document.getElementById("sustain").value = 90;
+        document.getElementById("release").value = 90;
+        document.getElementById("AMs").value = .05;
+        document.getElementById("AMf").value = 2;
+        document.getElementById("FMs").value = 2;
+        document.getElementById("FMf").value = 400;
     }
     [x , audio] = createsinwave(Fs)
 }
