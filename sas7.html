@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sums and Series</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{n=1}^{\infty}\frac{1}{n^2}\left(1+\frac{1}{2}+\cdots +\frac{1}{n}\right)^2? $$
+</p>
+        </div>
+        <div class="grid-item3">
+            
+            We want to evaluate the infinite series
+
+            $$ S = \sum_{n=1}^{\infty}\left(\frac{H_{n}}{n}\right)^2 $$
+
+            where
+
+            $$ H_{n} = \sum_{k=1}^{n}\frac{1}{k} $$
+
+            denotes the $n^{th}$ harmonic number. <br><br>
+            
+            Before we begin, we need to note some tricky double sum laws. Given a summand that is symmetric in the variables $k$ and $j$:
+
+            $$ \sum_{k,j=1}^{\infty}a_{k,j} = \sum_{k,j=1}^{\infty}a_{j,k}, $$
+
+            we may rewrite the sum as
+
+            $$ \sum_{k,j=1}^{\infty}a_{k,j} = \sum_{k=1}^{\infty}a_{k,k} + 2\sum_{1 \leq k < j}^{}a_{k,j}. $$
+
+            However, we also have that
+
+            $$ \sum_{1 \leq k < j}^{}a_{k,j} = \sum_{k,m=1}^{\infty}a_{k,k+m}. $$
+
+            Putting together these $2$ equalities, we thus obtain
+
+            $$ \sum_{k,j=1}^{\infty}a_{k,j} = \sum_{k=1}^{\infty}a_{k,k} + 2\sum_{k,m=1}^{\infty}a_{k,k+m} \tag{1.}$$
+
+            and
+
+            $$ \sum_{k,m=1}^{\infty}a_{k,k+m} = \frac{1}{2}\left(\sum_{k,j=1}^{\infty}a_{k,j}-\sum_{k=1}^{\infty}a_{k,k}\right) \tag{2.}$$
+            where these results will be used later. <br><br>
+            
+            For the sum, we start by noting that via telescoping series,
+
+            $$ \frac{H_{n}}{n} = \sum_{k=1}^{\infty}\frac{1}{k(k+n)}. $$
+
+            Applying this in $S$, we have
+
+            $$ S = \sum_{n=1}^{\infty}\left(\sum_{k=1}^{\infty}\frac{1}{k(k+n)}\right)^2 = \sum_{n=1}^{\infty}\sum_{k,j=1}^{\infty}\frac{1}{kj(k+n)(j+n)}. $$
+
+            Using <strong>(1.)</strong>, the above becomes
+
+            $$\begin{aligned} S &= \sum_{n=1}^{\infty}\left(\sum_{k=1}^{\infty}\frac{1}{k^2(k+n)^2} + 2\sum_{k,m=1}^{\infty}\frac{1}{k(k+m)(k+n)(k+m+n)} \right) 
+            \\ &= \underbrace{\sum_{k,n=1}^{\infty}\frac{1}{k^2(k+n)^2}}_{S_{1}} + 2\underbrace{\sum_{k,m,n=1}^{\infty}\frac{1}{k(k+m)(k+n)(k+m+n)}}_{S_{2}}. \end{aligned} $$
+
+            For $S_{1}$, using <strong>(2.)</strong> we have
+
+            $$\begin{aligned} S_{1} &= \sum_{k,n=1}^{\infty}\frac{1}{k^2(k+n)^2} 
+            \\ &= \frac{1}{2}\left(\sum_{k,j=1}^{\infty}\frac{1}{k^2j^2} - \sum_{k=1}^{\infty}\frac{1}{k^4}\right) 
+            \\ &= \frac{1}{2}\left(\zeta^2(2) - \zeta(4)\right). \end{aligned} $$
+
+            For $S_{2}$, using the following identity:
+
+            $$ \frac{(k+m)(k+n)-k(k+m+n)}{mn} = 1, $$
+
+            we have
+
+            $$\begin{aligned} S_{2} &= \sum_{k,m,n=1}^{\infty}\frac{1}{k(k+m)(k+n)(k+m+n)} 
+            \\ &= \sum_{k,m,n=1}^{\infty}\frac{(k+m)(k+n)-k(k+m+n)}{kmn(k+m)(k+n)(k+m+n)} 
+            \\ &= \sum_{k,m,n=1}^{\infty}\frac{1}{kmn(k+m+n)} - \underbrace{\sum_{k,m,n=1}^{\infty}\frac{1}{mn(k+m)(k+n)}}_{=S}. \end{aligned} $$
+
+            Therefore, noting that $S = S_{1} + 2S_{2}$, we solve for $S$ as
+
+            $$ S = \frac{1}{6}\left(\zeta^2(2) - \zeta(4)\right) + \frac{2}{3}\sum_{k,m,n=1}^{\infty}\frac{1}{kmn(k+m+n)}. $$
+            
+            And finally, we evaluate the remaining sum:
+
+            $$\begin{aligned} \sum_{k,m,n=1}^{\infty}\frac{1}{kmn(k+m+n)} &= \int_{0}^{1}\sum_{k,m,n=1}^{\infty}\frac{x^{k+m+n-1}}{kmn} \, \mathrm dx 
+            \\ &= -\int_{0}^{1}\frac{\ln^3(1-x)}{x} \, \mathrm dx, \, \text{via Maclaurin series} 
+            \\ &= -\int_{0}^{1}\frac{\ln^3t}{1-t} \, \mathrm dt, \, \text{via }t=1-x 
+            \\ &= -\sum_{k=0}^{\infty}\int_{0}^{1}t^k\ln^3t \, \mathrm dt , \, \text{via geo. series} 
+            \\ &= 6\sum_{k=0}^{\infty}\frac{1}{(k+1)^4}, \, \text{via IBP} 
+            \\ &= 6\zeta(4). \end{aligned} $$
+            
+            Putting together our results, we conclude that
+
+            $$ S = \frac{17}{4}\zeta(4) = \frac{17\pi^4}{360} $$
+            
+            as requested.
+            
+            
+        </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
