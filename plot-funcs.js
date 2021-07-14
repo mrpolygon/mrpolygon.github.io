@@ -5,6 +5,54 @@ document.addEventListener('keydown', (event)=> {
     if (event.key=== 'a'){
         playsound(audio,Fs);
     }
+    else if (event.key=== 'w'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 's'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'e'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'd'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'f'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 't'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'g'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'y'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'h'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'u'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'j'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'k'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'o'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'l'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== 'p'){
+        playsound(audio,Fs);
+    }
+    else if (event.key=== ';'){
+        playsound(audio,Fs);
+    }
 });
 function createsinwave(Fs){
     let [contour , sec] = createcontour(Fs);
@@ -43,7 +91,7 @@ function createsinwave(Fs){
         }
     }
     var max = audio.reduce(function(a, b) {
-        return Math.max(a, b);
+        return Math.max(Math.abs(a), Math.abs(b));
     });
     for (let i = 0; i < N; i++){
         audio[i] = audio[i]/max;
@@ -240,7 +288,7 @@ function data(inst){
         document.getElementById("myRangef6").value = 0;
         document.getElementById("myRangef7").value = 0;
 
-        document.getElementById("ff").value = 400;
+        document.getElementById("ff").value = 450;
         document.getElementById("chor").value = .5;
         document.getElementById("rand").value = 30;
 
@@ -285,14 +333,14 @@ function data(inst){
         document.getElementById("FMs").value = 2;
         document.getElementById("FMf").value = 1;
     }
-    else if (inst == 'whistle'){
-        document.getElementById("myRangei1").value = 100;
-        document.getElementById("myRangei2").value = 1;
+    else if (inst == 'trumpet'){
+        document.getElementById("myRangei1").value = 50;
+        document.getElementById("myRangei2").value = 0;
         document.getElementById("myRangei3").value = 1;
-        document.getElementById("myRangei4").value = 1;
-        document.getElementById("myRangei5").value = 0; 
+        document.getElementById("myRangei4").value = 0;
+        document.getElementById("myRangei5").value = 1; 
         document.getElementById("myRangei6").value = 0;
-        document.getElementById("myRangei7").value = 0;
+        document.getElementById("myRangei7").value = 1;
 
         document.getElementById("myRangef1").value = 100;
         document.getElementById("myRangef2").value = 0;
@@ -302,19 +350,19 @@ function data(inst){
         document.getElementById("myRangef6").value = 0;
         document.getElementById("myRangef7").value = 0;
 
-        document.getElementById("ff").value = 1300;
-        document.getElementById("chor").value = .04;
-        document.getElementById("rand").value = 0;
+        document.getElementById("ff").value = 400;
+        document.getElementById("chor").value = .15;
+        document.getElementById("rand").value = 5;
 
-        document.getElementById("attack").value = 50;
-        document.getElementById("decay").value = 90;  
-        document.getElementById("decays").value = 10; 
+        document.getElementById("attack").value = 30;
+        document.getElementById("decay").value = 83;  
+        document.getElementById("decays").value = 90; 
         document.getElementById("sustain").value = 100;
         document.getElementById("release").value = 30;
-        document.getElementById("AMs").value = .1;
-        document.getElementById("AMf").value = 6;
-        document.getElementById("FMs").value = 0;
-        document.getElementById("FMf").value = 0;
+        document.getElementById("AMs").value = .05;
+        document.getElementById("AMf").value = 3;
+        document.getElementById("FMs").value = 4;
+        document.getElementById("FMf").value = 402.5;
     }
     [x , audio] = createsinwave(Fs)
 }
