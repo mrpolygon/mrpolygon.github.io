@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \int_{-\pi /6}^{\pi /6} \ln\left(\tan x + \tan\frac{\pi}{6}\right)\tan x \, \mathrm dx? $$
+</p>
+        </div>
+        <div class="grid-item3">
+
+            We want to evaluate
+            $$ I = \int_{-\pi /6}^{\pi /6} \ln\left(\tan x + \tan\frac{\pi}{6}\right)\tan x \, \mathrm dx. $$
+
+            This one sat in my brain for a few weeks until I figured it out. That being said, it is quite involved!<br><br>
+            
+            First, we note that $\tan\frac{\pi}{6} = 1/\sqrt{3}$ and so applying this gives
+
+            $$\begin{aligned} I &= \int_{-\pi /6}^{\pi /6} \ln\left(\frac{\sqrt{3}\tan x +1}{\sqrt{3}}\right)\tan x \, \mathrm dx 
+            \\ &= \int_{-\pi /6}^{\pi /6} \ln\left(\sqrt{3}\tan x +1\right)\tan x \, \mathrm dx - \ln \sqrt{3}\underbrace{\int_{-\pi /6}^{\pi /6} \tan x \, \mathrm dx}_{=0, \text{ odd integrand}}. \end{aligned} $$
+
+            Next we apply the substitution $t=\tan x$. This gives
+
+            $$ I = \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{t\ln\left(\sqrt{3}t+1\right)}{t^2+1} \, \mathrm dt. $$
+            
+            We now introduce a paratemeter $a$ such that
+
+            $$ F(a) = \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{t\ln\left(\sqrt{3}t+a\right)}{t^2+1} \, \mathrm dt, $$
+
+            where we are looking for $I = F(1)$. Differentiating both sides with respect to $a$ then decomposing the result into partial fractions yields
+
+            $$\begin{aligned} F'(a) &= \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{t}{\left(t^2+1\right)\left(\sqrt{3}t+a\right)} \, \mathrm dt 
+            \\ &= \frac{1}{a^2+3}\left[\int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{at+\sqrt{3}}{t^2+1} \, \mathrm dt - \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{\sqrt{3}a}{\sqrt{3}t+a} \, \mathrm dt \right]. \end{aligned} $$
+
+            We have
+
+            $$\begin{aligned} \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{at+\sqrt{3}}{t^2+1} \, \mathrm dt &= \underbrace{\int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{at}{t^2+1} \, \mathrm dt}_{=0, \text{ odd integrand}} + \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{\sqrt{3}}{t^2+1} \, \mathrm dt 
+            \\ &= \sqrt{3}\arctan t \Bigg|_{-1/\sqrt{3}}^{1/\sqrt{3}} \\ &= \frac{\pi}{\sqrt{3}}. \end{aligned} $$
+            
+            And,
+
+            $$\begin{aligned} \int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{\sqrt{3}a}{\sqrt{3}t+a} \, \mathrm dt &= \int_{-1}^{1}\frac{a}{w+a} \, \mathrm dw , \, \text{via } w = \sqrt{3}t 
+            \\ &= a\ln(w+a)\Bigg|_{w=-1}^{w=1} \\ &= a\ln\left(\frac{a+1}{a-1}\right). \end{aligned} $$
+
+            Therefore, assembling our intermediate results:
+
+            $$ F'(a) = \frac{1}{a^2+3}\left[\frac{\pi}{\sqrt{3}} - a\ln\left(\frac{a+1}{a-1}\right)\right]. $$
+            
+            We now integrate both sides of the above from $0$ to $1$:
+
+            $$ F(1)-F(0) = \frac{\pi}{\sqrt{3}}\int_{0}^{1}\frac{1}{a^2+3} \, \mathrm da -\int_{0}^{1}\frac{a\ln\left(\frac{a+1}{a-1}\right)}{a^2+3} \, \mathrm da. $$
+
+            We have
+
+            $$ \int_{0}^{1}\frac{1}{a^2+3} \, \mathrm da = \frac{1}{\sqrt{3}}\arctan(a/\sqrt{3}) = \frac{\pi}{6\sqrt{3}}. $$
+
+            And,
+
+            $$ \int_{0}^{1}\frac{a\ln\left(\frac{a+1}{a-1}\right)}{a^2+3} \, \mathrm da = \ln(-1)\int_{0}^{1}\frac{a}{a^2+3} \, \mathrm da + \int_{0}^{1}\frac{a\ln\left(\frac{1+a}{1-a}\right)}{a^2+3} \, \mathrm da. $$
+
+            Isolating these integrals separately, we have
+
+            $$ \int_{0}^{1}\frac{a}{a^2+3} \, \mathrm da = \frac{1}{2}\ln\left(a^2+3\right)\Bigg|_{0}^{1} = \frac{1}{2}\ln\left(\frac{4}{3}\right), $$
+
+            and from <a href="int1.html">here</a> we have
+
+            $$ \int_{0}^{1}\frac{a\ln\left(\frac{1+a}{1-a}\right)}{a^2+3} \, \mathrm da = \frac{\pi^2}{36}. $$
+
+            Therefore, again assembling our intermediate results:
+
+            $$ F(1)-F(0) = \frac{\pi^2}{36} - \frac{1}{2}\ln(-1)\ln\left(\frac{4}{3}\right). $$
+            
+            It remains to evaluate $F(0)$. We start by breaking up the logarithm:
+
+            $$ F(0) = \ln \sqrt{3}\underbrace{\int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{t}{t^2+1} \, \mathrm dt}_{=0, \text{ odd integrand}}+\int_{-1/\sqrt{3}}^{1/\sqrt{3}}\frac{t\ln t}{t^2+1} \, \mathrm dt, $$
+
+            then we split the remaining integral into $2$ intervals like so:
+
+            $$ F(0) = \int_{-1/\sqrt{3}}^{0}\frac{t\ln t}{t^2+1} \, \mathrm dt + \int_{0}^{1/\sqrt{3}}\frac{t\ln t}{t^2+1} \, \mathrm dt. $$
+
+            In the first remaining integral, we replace $t$ with $-t$. This gives
+
+            $$\begin{aligned} F(0) &= -\int_{0}^{1/\sqrt{3}}\frac{t\ln(-t)}{t^2+1} \, \mathrm dt + \int_{0}^{1/\sqrt{3}}\frac{t\ln t}{t^2+1} \, \mathrm dt 
+            \\ &= \ln(-1)\int_{0}^{1/\sqrt{3}}\frac{t}{t^2+1} \, \mathrm dt - \int_{0}^{1/\sqrt{3}}\frac{t\ln t}{t^2+1} \, \mathrm dt + \int_{0}^{1/\sqrt{3}}\frac{t\ln t}{t^2+1} \, \mathrm dt 
+            \\ &= \ln(-1)\int_{0}^{1/\sqrt{3}}\frac{t}{t^2+1} \, \mathrm dt 
+            \\ &= \frac{1}{2}\ln(-1)\ln\left(t^2+1\right)\Bigg|_{0}^{1/\sqrt{3}} 
+            \\ &= \frac{1}{2}\ln(-1)\ln\left(\frac{4}{3}\right).\end{aligned} $$
+
+            In all we have that
+            $$\begin{aligned} F(1) &= \frac{\pi^2}{36} - \frac{1}{2}\ln(-1)\ln\left(\frac{4}{3}\right)+\frac{1}{2}\ln(-1)\ln\left(\frac{4}{3}\right) 
+            \\ &= \frac{\pi^2}{36}, \end{aligned} $$
+
+            where we were careful to choose the values from $\ln(-1) = \pm i \pi$ such that the imaginary components canceled (because we know $F(1)$ is real-valued).<br><br>
+            
+            Take a deep breath. Since $F(1)=I$, we are done. We conclude that
+
+            $$ \int_{-\pi /6}^{\pi /6} \ln\left(\tan x + \tan\frac{\pi}{6}\right)\tan x \, \mathrm dx = \frac{\pi^2}{36}. $$
+            
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
