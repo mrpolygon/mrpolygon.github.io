@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+How can we quantify the pleasantness of a musical sound?
+</p>
+        </div>
+        <div class="grid-item3">
+
+            $$\textbf{Introduction}$$
+            Define a sound musical if it may be modeled with little error by a low number of discrete frequencies with respective amplitude contours:<br><br>
+
+            Let
+
+            $$F_{l=1,2,3\ldots L} \in \mathbb{Q}_{\geq 1} $$
+
+            be a set of fundamental frequency ($\delta$) normalized frequencies. <br><br>
+
+            Then our frequency set is
+
+            $$ f_{l} = \delta F_{l}. $$
+
+            Let
+
+            $$ A_{l=1,2,3\ldots L}(t) \in \mathbb{R}_{\geq 0} $$
+
+            be each frequencies’ respective time-varying amplitude contour. Then our sound model, $s(t)$, is constructed as
+
+            $$ s(t) = \sum_{l=1}^{L} A_{l}(t) \cos(2\pi f_{l}t). $$
+
+            We may obtain this model from a sampled musical sound by
+            <ol>
+            <li> passing the sampled sound through parallel band-pass filters</li>
+            <li> passing the output bands through respective sinusoidal amplitude contour filters (adapted moving average filter) </li>
+            </ol>
+
+            We now want to quantify the stability of any given musical sound. Which one is the most pleasing? Let’s set up some conditions.
+
+            $$\textbf{Pairwise Stability Condition} $$
+
+            All possible pairwise interactions within $F_{l}$ will be relevant to the total stability. Let
+
+            $$ p = 1,2,3\ldots \frac{L(L-1)}{2} $$
+
+            count all pairwise interactions indexed by $i$ and $j$.
+
+            $$\textbf{Absolute Amplitude Condition} $$
+            An interaction between $2$ loud frequencies will be more relevant to the total stability than the interaction between $2$ quiet frequencies. Let
+
+            $$ w_{p}(t) = \frac{A_{i}(t) + A_{j}(t)}{2} $$
+
+            represent the absolute weight of any given interaction $p$.
+
+            $$\textbf{Masking Amplitude Condition} $$
+
+            An interaction between $2$ frequencies of equal volume will be more relevant to the total stability than the interaction between $2$ frequencies of different volume. Let
+
+            $$ m_{p}(t) = \frac{\mathrm{min}(A_{i}(t),A_{j}(t))}{\mathrm{max}(A_{i}(t),A_{j}(t))} $$
+
+            represent the masking weight of any given interaction $p$.
+
+            $$\textbf{Self-Stability Condition} $$
+
+            A distinct sinusoid will form under conditions of stability. Then the existence of a sinusoid is stable with a periodicity weight of $1$. Define self-stability for all frequencies as
+
+            $$ v_{l} = 1. $$
+
+            $$ \textbf{Orthogonality Condition} $$
+
+            The stability of any interaction $p$ is a function of the interaction’s periodicity. For any given $p$, we must find the minimum common period $T$ such that
+
+            $$ [F_{i} , F_{j}]T \in \mathbb{Z}. $$
+
+            Then the periodicity weight is given by
+
+            $$ d_{p} = \mathrm{min}(F_{i},F_{j})T. $$
+
+            We could assign a tolerance such that any given interaction is rounded to the nearest defined stable interval. A good tolerance choice is the $12$-Tone Just Intonation scale.
+
+            $$\textbf{Beat Frequency Condition} $$
+
+            Frequency interactions close together are less stable than frequency interactions far apart. Define beat stability as
+
+            $$ b_{p} = 1+\Bigg|\frac{\mathrm{min}(F_{i},F_{j})}{F_{i}-F_{j}}\Bigg|. $$
+
+            $$\textbf{Assembled Stability} $$
+
+            Then stability $r(t)$ (low values indicate pleasing sounds) can be assembled via a weighting function. Taking the logarithm helps to fit the data to a nicer contour:
+
+            $$r(t) = \log\left(\frac{\displaystyle\sum_{l=1}^{L}A_{l}(t)v_{l} + \sum_{p=1}^{P} d_{p}b_{p}w_{p}(t)m_{p}(t)}{\displaystyle\sum_{l=1}^{L}A_{l}(t) + \sum_{p=1}^{P}w_{p}(t)m_{p}(t)}\right). $$
+            
+           
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
