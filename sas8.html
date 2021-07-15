@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What is the value of 
+$$ \sum_{k=1}^{n}\cos\left(\frac{k\pi}{n+1}\right)?$$
+</p>
+        </div>
+        <div class="grid-item3">
+
+            Begin by using the finite geometric series (valid when $x \neq 1$)
+
+            $$ \sum_{k=1}^{n}x^k = \frac{x^{n+1}-x}{x-1}, $$
+
+            then replace $x$ with $e^{i\theta}$
+
+            $$ \sum_{k=1}^{n}e^{ki\theta} = \frac{e^{(n+1)i\theta}-e^{i\theta}}{e^{i\theta}-1}. $$
+
+            Conjugate the denominator to equate real components then simplify via sum to product trigonometric identity
+
+            $$\begin{aligned} \sum_{k=1}^{n}\cos(k\theta) &= \mathcal{Re}\left(\frac{e^{(n+1)i\theta}-e^{i\theta}}{e^{i\theta}-1} \cdot \frac{e^{-i\theta}-1}{e^{-i\theta}-1}\right) 
+            \\ &= \frac{\cos(n\theta)+\cos(\theta)-\cos((n+1)\theta)-1}{2-2\cos(\theta)} 
+            \\ &= \frac{2\cos\left(\frac{(n+1)\theta}{2}\right)\cos\left(\frac{(n-1)\theta}{2}\right)-\cos((n+1)\theta)-1}{2-2\cos(\theta)}. \end{aligned} $$
+
+            Finally, let $\theta=\frac{\pi}{n+1}$ to conclude that
+
+            $$\begin{aligned} \sum_{k=1}^{n}\cos\left(\frac{k\pi}{n+1}\right) &= \frac{2\cos\left(\frac{(n+1)\pi}{(n+1)2}\right)\cos\left(\frac{(n-1)\pi}{(n+1)2}\right)-\cos\left(\frac{(n+1)\pi}{n+1}\right)-1}{2-2\cos\left(\frac{\pi}{n+1}\right)} 
+            \\ &= \frac{0+1-1}{2-2\cos\left(\frac{\pi}{n+1}\right)} 
+            \\ &= 0. \end{aligned} $$
+            
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
