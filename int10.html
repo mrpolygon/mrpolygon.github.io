@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Integrals</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+What are all rational pairs of $(m,n)$ such that
+$$ \int_{0}^{\infty}\frac{x^m}{\left(x^n+1\right)^2} \, \mathrm dx = \pi? $$
+</p>
+        </div>
+        <div class="grid-item3">
+
+            We want to determine all rational pairs of $(m,n)$ such that
+
+            $$ \int_{0}^{\infty}\frac{x^m}{\left(x^n+1\right)^2} \, \mathrm dx = \pi. $$
+            
+            <a href="int9.html">Here</a> we show that for $m,n \in \mathbb{R}$ and $r \in \mathbb{N}$:
+
+            $$ \int_{0}^{\infty}\frac{x^m}{\left(x^n+1\right)^{r}} \, \mathrm dx = \frac{(-1)^{r-1}}{(r-1)!}\frac{\pi}{|n|}\csc\frac{\pi (n-m-1)}{n}\prod_{k=1}^{r-1}\left(\frac{m}{n}+\frac{1}{n}-k\right), $$
+
+            where $(nr>m+1 \land m>-1) \lor (nr < m+1 \land m<-1)$ for convergence. Considering the case where $n>0$, for our problem by letting $r=2$ we need
+
+            $$ -\frac{\pi}{n}\csc\frac{\pi (n-m-1)}{n}\left(\frac{m}{n}+\frac{1}{n}-1\right) = \pi, $$
+
+            under the convergence constraint that $(2n>m+1 \land m>-1)$ and the constraint that $m$ and $n$ are rational.<br><br>
+            
+            We first take the subcase where
+
+            $$\begin{aligned} -\frac{\pi}{n}\left(\frac{m}{n}+\frac{1}{n}-1\right) &= \pi 
+            \\ \csc\frac{\pi (n-m-1)}{n} &= 1. \end{aligned} $$
+
+            Manipulating these equalities, we find that
+
+            $$ m = -n^2+n-1. \tag{1.}$$
+
+            and
+
+            $$ q = \frac{n-2m-2}{4n}, \, \, q\in\mathbb{Z}. \tag{2.}$$
+
+            Plotting <strong>(1.)</strong> vs $(2n>m+1 \land m>-1)$:
+            <br><br>
+            
+            <img src="conv_region2.png" alt="Convergence Region" class="center"><br><br>
+            
+            we see that we must at least have $n \in (0,1)$. Now we substitute <strong>(1.)</strong> into <strong>(2.)</strong>:
+
+            $$ q = \frac{2n-1}{4}, $$
+
+            which gives the lone valid solution when $n=1/2$. Therefore, our first pair that satisfies the question statement is
+
+            $$ (m,n) = (-3/4,1/2). $$
+
+            Using an interval inverting substitution,
+
+            $$ \int_{0}^{\infty}\frac{x^{-3/4}}{\left(x^{1/2}+1\right)^2} \, \mathrm dx = \int_{0}^{\infty}\frac{x^{-5/4}}{\left(x^{-1/2}+1\right)^2} \, \mathrm dx = \pi , $$
+
+            we quickly gain the negative “conjugate” of our first pair:
+
+            $$ (m,n) = (-5/4,-1/2). $$
+            
+            We now take the subcase where
+
+            $$\begin{aligned} -\frac{\pi}{n}\left(\frac{m}{n}+\frac{1}{n}-1\right) &= \frac{\pi}{2} 
+            \\ \csc\frac{\pi (n-m-1)}{n} &= 2. \end{aligned} $$
+
+            Manipulating these equalities, we find that
+
+            $$ m = -\frac{1}{2}n^2+n-1. \tag{3.}$$
+
+            and
+
+            $$ q = \frac{5n-6m-6}{12n}, \, \, q\in\mathbb{Z}. \tag{4.}$$
+
+            Plotting <strong>(3.)</strong> vs $(2n>m+1 \land m>-1)$:
+            <br><br>
+            
+            <img src="conv_region3.png" alt="Convergence Region" class="center"><br><br>
+            
+            we see that we must at least have $n \in (0,2)$. Now we substitute <strong>(3.)</strong> into <strong>(4.)</strong>:
+
+            $$ q = \frac{3n-1}{12}, $$
+
+            which gives the lone valid solution when $n=1/3$. Therefore, our third pair that satisfies the question statement is
+
+            $$ (m,n) = (-13/18,1/3). $$
+
+            Using an interval inverting substitution,
+
+            $$ \int_{0}^{\infty}\frac{x^{-13/18}}{\left(x^{1/3}+1\right)^2} \, \mathrm dx = \int_{0}^{\infty}\frac{x^{-23/18}}{\left(x^{-1/3}+1\right)^2} \, \mathrm dx = \pi, $$
+
+            we quickly gain the negative “conjugate” of our third pair:
+
+            $$ (m,n) = (-23/18,-1/3). $$
+            
+            Using the above methodology, it is left to the reader to verify that the last $4$ pairs are given by
+
+            $$\begin{aligned} (m,n) &= (-1/4,1/2) 
+            \\ &= (-7/4,-1/2) 
+            \\ &= (-11/18,1/3) 
+            \\ &= (-25/18,-1/3). \end{aligned} $$
+            
+            We conclude that there are $8$ unique solutions:
+
+            $$\begin{aligned} (m,n) &= (-1/4,1/2) 
+            \\ &= (-3/4,1/2) 
+            \\ &= (-5/4,-1/2) 
+            \\ &= (-7/4,-1/2) 
+            \\ &= (-11/18,1/3) 
+            \\ &= (-13/18,1/3) 
+            \\ &= (-23/18,-1/3) 
+            \\ &= (-25/18,-1/3). \end{aligned} $$
+            
+            
+
+                    </div>
+
+    </div>
+</body>
+  <script>
+    renderMathInElement(document.body);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
