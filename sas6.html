@@ -62,7 +62,7 @@ $$ \sum_{n=0}^{\infty}(-1)^{n+1}\frac{\ln(2n+1)}{2n+1}? $$
 
             $$\begin{aligned} a_{n} &= 2\int_{0}^{1}\ln \Gamma(x) \cos(2\pi n x) \, \mathrm dx 
             \\ &= 2\int_{0}^{1}\ln\left(\frac{\pi}{\sin(\pi x)\Gamma(1-x)}\right)\cos(2\pi n x) \, \mathrm dx, \, \text{via gamma reflection} 
-            \\ &= 2\bigg(\underbrace{\int_{0}^{1} \ln \pi \cos(2\pi n x) \, \mathrm dx}_{=0, \text{ orthogonality}} - \int_{0}^{1}\ln \sin (\pi x) \cos(2\pi nx) \, \mathrm dx - \underbrace{\int_{0}^{1}\ln\Gamma(1-x) \cos(2\pi n x) \, \mathrm dx}_{=a_{n}, \text{ via } t=1-x}\bigg) 
+            \\ &= 2\bigg(\underbrace{\int_{0}^{1} \ln \pi \cos(2\pi n x) \, \mathrm dx}_{=0, \text{ orthogonality}} - \int_{0}^{1}\ln \sin (\pi x) \cos(2\pi nx) \, \mathrm dx - \underbrace{\int_{0}^{1}\ln\Gamma(1-x) \cos(2\pi n x) \, \mathrm dx}_{=\frac{1}{2}a_{n}, \text{ via } t=1-x}\bigg) 
             \\ &= - \int_{0}^{1}\ln \sin (\pi x) \cos(2\pi nx) \, \mathrm dx 
             \\ &= -\frac{1}{\pi}\int_{0}^{\pi}\ln \sin t \cos(2nt) \, \mathrm dt, \, \text{via }t=\pi x 
             \\ &= \frac{1}{2\pi n}\int_{0}^{\pi} \cot t \sin(2nt) \, \mathrm dt,\, \text{via integration by parts.} \end{aligned} $$
