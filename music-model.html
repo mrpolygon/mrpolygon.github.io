@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <title>Integrals</title>
     <link href="plot-styler.css" rel="stylesheet">
-    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -14,6 +12,14 @@
     <!-- To automatically render math in text elements, include the auto-render extension: -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
         onload="renderMathInElement(document.body);"></script>
+
+
+        <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+      </script>
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js"></script>
+
+    
 
 </head>
   <body>
@@ -35,12 +41,12 @@
 
             Most musical instruments, including notes of the piano, flute, clarinet, and tuba among others, create such musical sounds. Other instruments, mainly percussive, do not 
             create musical sounds as defined. <br><br>
-            Given any musical sound here we present an algorithm for modeling it according to the approximation of <b>(1.)</b>. This alogirithm can be described roughly by
+            Given any musical sound here we present an algorithm for modeling it according to the approximation of <b>(1.)</b>. This algorithm can be described roughly by
             the following two-step process:
 
             <ol>
             <li> pass our musical sound through parallel band-pass filters to isolate prominent frequencies</li>
-            <li> pass the output bands through respective sinusoidal amplitude contour filters (adapted moving average filter) </li>
+            <li> pass the output bands through respective sinusoidal amplitude contour filters (adapted moving average filters). </li>
             </ol>
             
             For conciseness we will formulate our theory
@@ -61,11 +67,11 @@
             $$\textbf{Band Isolation}$$
             Now, in order to isolate any frequency band $f_{l}$ within $s(t)$, we convolve a specified wavelet $w_{l}(t)$ with $s(t)$. The wavelet we choose is based off the
             Gaussian wavelet in order to provide clear mediation between time and frequency resolution. Furthermore, by taking $n=0,1,2,\ldots$ fixed derivatives of the Gaussian, 
-            we are able to model levels of transience within any given band of $s(t)$. That is,
+            we are able to model levels of transience within any given band of $s(t)$. Thus,
 
             $$ w_{l}(t) = \frac{\mathrm d^n}{\mathrm d t^n}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right]e^{2\pi if_{l}t} \tag*{}$$ 
 
-            where $\beta=2\sigma$ is interpreted as frequency bandwidth and $\sigma$ is standard deviation due to
+            where $\beta=2\sigma$ is interpreted as frequency bandwidth (with $\sigma$ being standard deviation) because
 
             $$ \mathcal{F}_{t}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right](k) = \sqrt{\frac{2}{\pi}}\frac{1}{\beta}e^{-\frac{1}{2\sigma^2} k^2}. \tag*{} $$
 
@@ -83,16 +89,35 @@
             $$ A_{l}(t) = \frac{\pi f_{l}}{2}\left|r_{l}(t)\right| * u_{l}(t) \tag*{} $$
 
             where we interpret the above convolution as an adapted moving average filter.
+
+            $$\textbf{Model}$$
+
+            Defining $\tilde{s}(t)$ as the musical sound's model, we may conclude that
+
+            $$\tilde{s}(t) \approx \sum_{l=1}^{L}A_{l}(t)\sin(2\pi f_{l}t) \tag*{} $$
+
+            where we understand that $\tilde{s}(t)$ is sufficiently similar to the original musical sound $s(t)$.
             
             
 
                     </div>
+                    <div class="grid-item3">
+                        <div id="tester" class="plotresize"></div>
+                    </div>
+                    <div class="grid-item3">
+                        <div id="tester4" class="plotresize"></div>
+                    </div>
+                    <div class="grid-item3">
+                        <div id="tester5" class="plotresize"></div>
+                    </div>
+                    <div class="grid-item3">
+                        <div id="tester2" class="plotresize"></div>
+                    </div>
 
     </div>
 </body>
-  <script>
-    renderMathInElement(document.body);
-</script>
+<script src="fft-funcs.js"></script>
+<script src="timbremodel.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
