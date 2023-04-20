@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Music Modeling</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js" charset="utf-8"></script>
+
+    
+
+</head>
+  <body>
+    <div class="grid-container3">
+        <div class="grid-item3">
+           
+       
+
+<p style="text-align: center ">
+    Modeling Transient Levels of Musical Sounds via a Hermite Gaussian Wavelet Algorithm.
+</p>
+        </div>
+        <div class="grid-item3">
+
+            $$\textbf{Introduction}$$
+            Define a musical sound $s(t)$ as a sound that may be modeled with little error by a low number $L$ of discrete frequencies $f_{l}$ with respective amplitude contours $A_{l}(t)$:
+
+            $$s(t) \approx \sum_{l=1}^{L}A_{l}(t)\sin(2\pi f_{l}t). \tag{1.}$$
+
+            Most musical instruments, including notes of the piano, flute, clarinet, and tuba among others, create such musical sounds. Other instruments, mainly percussive, do not 
+            create musical sounds as defined. <br><br>
+            Given any musical sound here we present an algorithm for modeling it according to the approximation of <b>(1.)</b>. This algorithm can be described roughly by
+            the following two-step process:
+
+            <ol>
+            <li> pass our musical sound through parallel band-pass filters to isolate prominent frequencies</li>
+            <li> pass the output bands through respective sinusoidal amplitude contour filters (adapted moving average filters). </li>
+            </ol>
+            
+            For conciseness we will formulate our theory
+            from a continuous-time lense, however, please note that sampled sounds are necessarily discrete-time. This algorithm must be transcribed into such a framework in order 
+            to implement it on real-world signals.<br><br>
+
+            $$\textbf{General Theory}$$
+            In order to begin, we must define two standard integral transforms that are used heavily in signal processing, and likewise are used heavily here.<br><br>
+
+            We define the convolution of any two arbitrary signals $x(t)$ and $y(t)$ as
+
+            $$ x(t) * y(t) = \int_{-\infty}^{\infty}x(\tau)y(t-\tau) \, \mathrm d\tau. \tag*{}$$
+
+            We define the Fourier transform of any arbitrary signal $x(t)$ as
+            
+            $$ \mathcal{F}_{t}\left[x(t)\right](k) = \int_{-\infty}^{\infty}x(t)e^{-2\pi i kt} \, \mathrm dt. \tag*{} $$
+
+            $$\textbf{Band Isolation}$$
+            Now, in order to isolate any frequency band $f_{l}$ within $s(t)$, we convolve a specified wavelet $w_{l}(t)$ with $s(t)$. The wavelet we choose is based off the
+            Gaussian wavelet in order to provide clear mediation between time and frequency resolution. Furthermore, by taking $n=0,1,2,\ldots$ fixed derivatives of the Gaussian, 
+            we are able to model levels of transience within any given band of $s(t)$. Thus,
+
+            $$ w_{l}(t) = \frac{\mathrm d^n}{\mathrm d t^n}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right]e^{2\pi if_{l}t} \tag*{}$$ 
+
+            where $\beta=2\sigma$ is interpreted as frequency bandwidth (with $\sigma$ being standard deviation) because
+
+            $$ \mathcal{F}_{t}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right](k) = \sqrt{\frac{2}{\pi}}\frac{1}{\beta}e^{-\frac{1}{2\sigma^2} k^2}. \tag*{} $$
+
+            We refer to $w_{l}(t)$ as a Hermite Gaussian wavelet because successive Gaussian derivatives can be composed of the Gaussian itself
+            multiplied by successive Hermite polynomials.  Then, our filtered output $r_{l}(t)$ is given as
+
+            $$ r_{l}(t) = \frac{2}{\max\left(\mathcal{F}_{t}\left[w_{l}(t)\right](k)\right)}\mathrm{Re}\left[s_{l}(t)* w_{l}(t)\right]. \tag*{} $$
+            
+            $$\textbf{Amplitude Extraction}$$
+            We now are ready to determine our amplitude contour $A_{l}(t)$. To do this, we define a step-like function $u_{l}(t)$ as
+
+            $$ u_{l}(t) = \begin{cases}1, & 0 \leq t < 1/f_{l} \\ 0, & \text{otherwise} \end{cases} \tag*{} $$
+
+            and then we simply have
+
+            $$ A_{l}(t) = \frac{\pi f_{l}}{2}\left|r_{l}(t)\right| * u_{l}(t) \tag*{} $$
+
+            where we interpret the above convolution as an adapted moving average filter.
+
+            $$\textbf{Model}$$
+
+            Defining $\tilde{s}(t)$ as the musical sound's model, we may conclude that
+
+            $$\tilde{s}(t) = \sum_{l=1}^{L}A_{l}(t)\sin(2\pi f_{l}t) \tag*{} $$
+
+            where we understand that $\tilde{s}(t)$ is sufficiently similar to the original musical sound $s(t)$.
+            
+            
+
+                    </div>
+
+
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</html>

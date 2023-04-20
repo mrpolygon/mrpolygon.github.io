@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.1/full/pyodide.js"></script>
+
+<py-config type="json">
+    {
+      "packages": [
+        "numpy",
+        "sympy"
+      ],
+      "plugins": [
+        "https://pyscript.net/latest/plugins/python/py_tutor.py"
+      ]
+    }
+</py-config>
+ <py-script> 
+  
+ import numpy as np
+ X = np.fft.fft(np.array([1,0,-1,0]))
+
+
+</py-script>
+

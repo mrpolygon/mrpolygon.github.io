@@ -1,5 +1,4 @@
-let fh = [1];
-let ff = 25;
+/*let fh = [1];
 let fd = 1*ff;
 let ffl = [1,2];let Fs = 750;
 let Tf = 2;
@@ -25,13 +24,13 @@ for (j=0;j<=Math.round(Tf*Fs)-1;j++){
         }
     }
     yis[j] = 0;
-}
+
 [yo,afz,t,Gc,Gs,tg]=waveletmodel(yic,yis,Fs,fh,ff,fd,ffl);
 plotdata3(t,afz);
 plotdata1(t,yic);
 plotdata4(t,yc1,afz);
 plotdata5(t,yc2,afz);
-
+}*/
 function waveletmodel(yic,yis,Fs,fh,ff,fd,ffl){
     let t = [];
     for (let j=0;j<=yic.length-1;j++){
