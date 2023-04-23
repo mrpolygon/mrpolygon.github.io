@@ -46,6 +46,13 @@ label {
     background-color: #2196F3;
     padding: 10px;
   }
+  .grid-container6 {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 450px 450px;
+    background-color: #2196F3;
+    padding: 10px;
+  }
   .grid-item {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
@@ -79,6 +86,15 @@ label {
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 1px;
     font-size: 70px;
+    text-align: center;
+  }
+  .grid-item6 {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 1px;
+    font-size: 30px;
     text-align: center;
   }
   .slidecontainer {

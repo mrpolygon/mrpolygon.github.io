@@ -25,6 +25,18 @@
            
             <input type="button" class="buttonsize" onclick="[x , audio , audios , ff] = createsinwave(Fs);" value="Generate Musical Sound"> 
             <input type="button" class="buttonsize" onclick="modelsound(audio,audios,ff,Fs)" value="Compute Model (This may take a few seconds)">
+            <label for="bandwidth">Bandwidth:</label>
+                <select name="bandwidth" id="bandwidth">
+                <option value=.5>Skinny</option>
+                <option value=1.5 selected>Regular</option>
+                <option value=2.5>Wide</option>
+                </select><br>
+            <label for="transience">Transience:</label>
+                <select name="transience" id="transience">
+                <option value=1 selected>Low</option>
+                <option value=2>Medium</option>
+                <option value=3>High</option>
+                </select>
         </div> 
         <div class="grid-item3">
             <div id="tester2" class="plotresize"></div>

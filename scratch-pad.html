@@ -1,6 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pyscript Practice</title>
 <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
 <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.23.1/full/pyodide.js"></script>
+<link href="plot-styler.css" rel="stylesheet">
+</head>
+<body>
+<div>
+<input type="button" id="dofft" value="Do FFT">
 
 <py-config type="json">
     {
@@ -13,11 +23,52 @@
       ]
     }
 </py-config>
- <py-script> 
-  
- import numpy as np
- X = np.fft.fft(np.array([1,0,-1,0]))
+<script>
+    function createObject(object, variableName){
+        //Bind a variable whose name is the string variableName
+        // to the object called 'object'
+        let execString = variableName + " = object"
+        //console.log("Running '" + execString + "'");
+        eval(execString)
+    }
 
+    document.getElementById("dofft").addEventListener("click", () => {
+    let x = []; let t= []; let Fs = 10;
+    for (let j=0;j<=Math.round(Fs)-1;j++){
+            t[j] = j/Fs;
+            x[j] = Math.cos(2*Math.PI*t[j]);
+           
+    }
 
+    const fftp = pyodideGlobals.get('fftp');
+    fftp(x);
+    Xc = Array.from(Xc);
+    Xs = Array.from(Xs);
+    console.log(Xc[1]);
+    console.log(Xs[1]);
+        });
+</script>
+
+<py-script> 
+from js import createObject
+from pyodide.ffi import create_proxy
+createObject(create_proxy(globals()), "pyodideGlobals")
+import numpy as np
+
+def fftp(x): 
+    x = str(x)
+    x = x.split(",")
+    x = list(map(float, x))
+    x = [i*1j for i in x]
+    print(x)
+    X = np.fft.ifft(x)
+    Xc = X.real
+    Xs = X.imag
+    js.createObject(create_proxy(Xc), "Xc")
+    js.createObject(create_proxy(Xs), "Xs")
 </py-script>
+
+</div>
+</body>
+</html>
 

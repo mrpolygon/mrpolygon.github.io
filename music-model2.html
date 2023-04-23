@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Music Modeling</title>
+    <link href="plot-styler.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.1/full/pyodide.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+
+    <script src="https://cdn.plot.ly/plotly-2.2.0.min.js" charset="utf-8"></script>
+
+    
+
+</head>
+  <body>
+    <div class="grid-container6">
+        <div class="grid-item6">
+            <br><br><br>
+            <input type="button" class="buttonsize" onclick="[x , audio , audios , ff] = createsinwave(Fs);" value="Generate Semi-random Musical Sound"> 
+            <input type="button" class="buttonsize" onclick="modelsound(audio,audios,ff,Fs)" value="Compute Model (This may take a few seconds)"><br><br><br><br>
+            <!--<div>
+                <label for="bandwidth">Bandwidth:</label>
+                    <select name="bandwidth" id="bandwidth">
+                    <option value=.25>Skinny</option>
+                    <option value=.5 selected>Regular</option>
+                    <option value=.75>Wide</option>
+                    </select> 
+            </div> !-->
+            <div>   
+                <label for="transience">Transience:</label>
+                    <select name="transience" id="transience">
+                    <option value=1 selected>Low</option>
+                    <option value=2>Medium</option>
+                    <option value=3>High</option>
+                    </select>
+            </div>  <br><br><br><br>
+            <input type="button" class="buttonsize" onclick="playsound(audio,Fs)" value="Play Musical Sound">
+            <input type="button" class="buttonsize" onclick="playsound(yo,Fs)" value="Play Filtered Sound">
+            <input type="button" class="buttonsize" onclick="playsound(yrec,Fs)" value="Play Model Reconstruction">
+        </div> 
+            <div class="grid-item5" id="tester2" class="plotresize"></div>
+            <div class="grid-item5" id="tester" class="plotresize"></div>
+
+
+    </div>
+<script src="timbremodel2.js"></script>
+<script src="plot-funcs2.js"></script>
+<py-config type="json">
+    {
+      "packages": [
+        "numpy",
+        "sympy"
+      ],
+      "plugins": [
+        "https://pyscript.net/latest/plugins/python/py_tutor.py"
+      ]
+    }
+</py-config>
+<script>
+    function createObject(object, variableName){
+    //Bind a variable whose name is the string variableName
+    // to the object called 'object'
+    let execString = variableName + " = object"
+    eval(execString)
+    }
+</script>
+<script>
+    function fft(xc,xs){
+        const fftp = pyodideGlobals.get('fftp');
+        fftp(xc,xs);
+        Xc = Array.from(Xc);
+        Xs = Array.from(Xs);
+        //console.log(Xc.length); console.log(Xs.length)
+        return [Xc,Xs]
+        
+    }
+</script>
+<script>
+    function ifft(xc,xs){      
+        const ifftp = pyodideGlobals.get('ifftp');
+        ifftp(xc,xs);
+        Xc = Array.from(Xc);
+        Xs = Array.from(Xs);
+        //console.log(Xc.length); console.log(Xs.length)
+        return [Xc,Xs]
+    }
+</script>
+<py-script> 
+    from js import createObject
+    from pyodide.ffi import create_proxy
+    createObject(create_proxy(globals()), "pyodideGlobals")
+    import numpy as np
+    
+    def fftp(xc,xs): 
+        xc = str(xc)
+        xc = xc.split(",")
+        xc = list(map(float, xc))
+        xs = str(xs)
+        xs = xs.split(",")
+        xs = list(map(float, xs))
+        xs = [i*1j for i in xs]
+        x = np.add(xc,xs)
+        X = np.fft.fft(x)
+        Xc = X.real
+        Xs = X.imag
+        js.createObject(create_proxy(Xc), "Xc")
+        js.createObject(create_proxy(Xs), "Xs")
+</py-script>
+
+<py-script> 
+    from js import createObject
+    from pyodide.ffi import create_proxy
+    createObject(create_proxy(globals()), "pyodideGlobals")
+    import numpy as np
+    
+
+    def ifftp(xc,xs): 
+        xc = str(xc)
+        xc = xc.split(",")
+        xc = list(map(float, xc))
+        xs = str(xs)
+        xs = xs.split(",")
+        xs = list(map(float, xs))
+        xs = [i*1j for i in xs]
+        x = np.add(xc,xs)
+        X = np.fft.ifft(x)
+        Xc = X.real
+        Xs = X.imag
+        js.createObject(create_proxy(Xc), "Xc")
+        js.createObject(create_proxy(Xs), "Xs")
+
+</py-script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+</body>
+</html>

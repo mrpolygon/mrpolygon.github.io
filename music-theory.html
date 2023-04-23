@@ -35,9 +35,7 @@ How can we quantify the pleasantness of a musical sound?
 
             $$F_{l=1,2,3\ldots L} \in \mathbb{Q}_{\geq 1} $$
 
-            be a set of fundamental frequency ($\delta$) normalized frequencies. <br><br>
-
-            Then our frequency set is
+            be a set of fundamental frequency ($\delta$) normalized frequencies. Then our frequency set is
 
             $$ f_{l} = \delta F_{l}. $$
 
@@ -45,15 +43,17 @@ How can we quantify the pleasantness of a musical sound?
 
             $$ A_{l=1,2,3\ldots L}(t) \in \mathbb{R}_{\geq 0} $$
 
-            be each frequencies’ respective time-varying amplitude contour. Then our sound model, $s(t)$, is constructed as
+            be each frequencies’ respective time-varying amplitude contour. Then our sound model, $\tilde{s}(t)$, is constructed as
 
-            $$ s(t) = \sum_{l=1}^{L} A_{l}(t) \cos(2\pi f_{l}t). $$
+            $$ \tilde{s}(t) = \sum_{l=1}^{L} A_{l}(t) \sin(2\pi f_{l}t). $$
 
             We may obtain this model from a sampled musical sound by
             <ol>
             <li> passing the sampled sound through parallel band-pass filters</li>
-            <li> passing the output bands through respective sinusoidal amplitude contour filters (adapted moving average filter) </li>
+            <li> passing the output bands through respective sinusoidal amplitude contour filters (adapted moving average filters). </li>
             </ol>
+
+            Please see <a href="model-timbres.html">here</a> for more information on the above modeling process. <br><br>
 
             We now want to quantify the stability of any given musical sound. Which one is the most pleasing? Let’s set up some conditions.
 
@@ -66,7 +66,7 @@ How can we quantify the pleasantness of a musical sound?
             count all pairwise interactions indexed by $i$ and $j$.
 
             $$\textbf{Absolute Amplitude Condition} $$
-            An interaction between $2$ loud frequencies will be more relevant to the total stability than the interaction between $2$ quiet frequencies. Let
+            An interaction between $2$ loud frequencies will be more relevant to the total stability than an interaction between $2$ quiet frequencies. Let
 
             $$ w_{p}(t) = \frac{A_{i}(t) + A_{j}(t)}{2} $$
 
@@ -74,7 +74,7 @@ How can we quantify the pleasantness of a musical sound?
 
             $$\textbf{Masking Amplitude Condition} $$
 
-            An interaction between $2$ frequencies of equal volume will be more relevant to the total stability than the interaction between $2$ frequencies of different volume. Let
+            An interaction between $2$ frequencies of equal volume will be more relevant to the total stability than an interaction between $2$ frequencies of different volume. Let
 
             $$ m_{p}(t) = \frac{\mathrm{min}(A_{i}(t),A_{j}(t))}{\mathrm{max}(A_{i}(t),A_{j}(t))} $$
 
@@ -106,9 +106,9 @@ How can we quantify the pleasantness of a musical sound?
 
             $$\textbf{Assembled Stability} $$
 
-            Then stability $r(t)$ (low values indicate pleasing sounds) can be assembled via a weighting function. Taking the logarithm helps to fit the data to a nicer contour:
+            Then stability $Q(t)$ (low values indicate pleasing sounds) can be assembled via a weighting function. Taking the logarithm helps to fit the data to a nicer contour:
 
-            $$r(t) = \log\left(\frac{\displaystyle\sum_{l=1}^{L}A_{l}(t)v_{l} + \sum_{p=1}^{P} d_{p}b_{p}w_{p}(t)m_{p}(t)}{\displaystyle\sum_{l=1}^{L}A_{l}(t) + \sum_{p=1}^{P}w_{p}(t)m_{p}(t)}\right). $$
+            $$Q(t) = \log\left(\frac{\displaystyle\sum_{l=1}^{L}A_{l}(t)v_{l} + \sum_{p=1}^{P} d_{p}b_{p}w_{p}(t)m_{p}(t)}{\displaystyle\sum_{l=1}^{L}A_{l}(t) + \sum_{p=1}^{P}w_{p}(t)m_{p}(t)}\right). $$
             
            
             

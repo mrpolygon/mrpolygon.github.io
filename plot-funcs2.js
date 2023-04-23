@@ -1,17 +1,58 @@
 let config  = initplot();
-let Fs = 2048;
-//let [x , audio , audios , ff] = createsinwave(Fs);
+let Fs = 32768;
+let TESTER = document.getElementById('tester2');
+    let trace = {
+        x: 0,
+        y: 0,
+        type: 'scatter',
+        name: 'scatter1'
+        };
+        let data = [trace];
+        let layout = { 
+            title: 'Waveform',
+            font: {size: 18},
+            showlegend: false
+        };
+    Plotly.newPlot(TESTER, data, layout);
+let TESTER2 = document.getElementById('tester');
+    let trace2 = {
+        x: 0,
+        y: 0,
+        type: 'scatter',
+        name: 'scatter1'
+        };
+        let data2 = [trace];
+        let layout2 = { 
+            title: 'Harmonic Model',
+            font: {size: 18},
+            showlegend: false
+        };
+    Plotly.newPlot(TESTER2, data2, layout2);
 function createsinwave(Fs){
+    TESTER = document.getElementById('tester');
+    let trace = {
+        x: 0,
+        y: 0,
+        type: 'scatter',
+        name: 'scatter1'
+        };
+        let data = [trace];
+        let layout = { 
+            title: 'Harmonic Model',
+            font: {size: 18},
+            showlegend: false
+        };
+    Plotly.newPlot(TESTER, data, layout);
     let [contour , sec] = createcontour(Fs);
     let N = Fs;
     let x = [];
     let audio = [];
     let audios = [];
-    let ff = Math.floor(Math.random() * 20+10);
-    let FMs = 0;
-    let FMf = 0;
-    let chor = 0;
-    let rand = 0;
+    let ff = Math.floor(Math.random() * 180+80);
+    let FMs = Math.random()*4;
+    let FMf = ff;
+    let chor = Math.random()*3;
+    let rand = Math.random()*.4;
     let chord = [1];
     let champ = [1];
     hi = getharmi();
@@ -47,7 +88,6 @@ function createsinwave(Fs){
     }
 
     plotdata(x,audio,config);
-    //plotdata2(x,hint,config);
     return [x , audio , audios , ff , ];
 }
 function audioinstance(audio,x,hint,ff,FMs,FMf,r,chor,n,chord,champ){
@@ -61,33 +101,33 @@ function audioinstance(audio,x,hint,ff,FMs,FMf,r,chor,n,chord,champ){
 }
 function getharmi(){
     var h1 = Math.random()*10;
-    var h2 = Math.random()*8;
-    var h3 = Math.random()*6;
-    var h4 = Math.random()*5;
-    var h5 = Math.random()*4;
-    var h6 = Math.random()*3;
-    var h7 = Math.random()*2;
+    var h2 = Math.random()*10;
+    var h3 = Math.random()*10;
+    var h4 = Math.random()*10;
+    var h5 = Math.random()*10;
+    var h6 = Math.random()*10;
+    var h7 = Math.random()*10;
     var hi = [h1 , h2 , h3 , h4 , h5 , h6 , h7];
     return hi
 }
 function getharmf(){
     var h1 = Math.random()*10;
-    var h2 = Math.random()*7;
-    var h3 = Math.random()*5;
-    var h4 = Math.random()*4;
-    var h5 = Math.random()*3;
-    var h6 = Math.random()*2;
-    var h7 = Math.random()*1;
+    var h2 = Math.random()*10;
+    var h3 = Math.random()*10;
+    var h4 = Math.random()*10;
+    var h5 = Math.random()*10;
+    var h6 = Math.random()*10;
+    var h7 = Math.random()*10;
     var hf = [h1 , h2 , h3 , h4 , h5 , h6 , h7];
     return hf
 }
 function createcontour(Fs){
-    let attack = Math.floor(Math.random() * 100+1)/1000;
+    let attack = Math.floor(Math.random() * 100+5)/1000;
     let decayf = Math.floor(Math.random() * 100+10)/100;  
     let decays = -Math.floor(Math.random() * 100+1)/10; 
     let release = Math.floor(Math.random() * 50+1)/100;
-    let AMs = 0;
-    let AMf = 0;
+    let AMs = Math.random()*.5;
+    let AMf = Math.random()*5;
     let zer = .0;
     let decay = (decayf-1)/decays;
     let sustain = .999 - attack - decay - release;
@@ -174,6 +214,20 @@ function dots(x1,x2){
     return S
 }
 
+function reconstruct(afz,t,ff){
+    let yrec = []; N = t.length;
+    for (var n = 1; n<=7; n++){
+        for (let i = 0; i < N; i++){
+            if (n===1){
+                yrec[i]=0
+            }
+            yrec[i] = yrec[i] + .95*afz[n-1][i]*Math.sin(2*Math.PI*n*ff*t[i])
+        }
+    }
+    return yrec
+}
+
+
 function plotdata(xdata,ydata,config){
     let trace = {
         x: xdata,
@@ -224,7 +278,16 @@ function gensound(Fs){
     [x , audio , audios , ff] = createsinwave(Fs);
 }
 function modelsound(audio,audios,ff,Fs){
-    [yo,afz,t,Gc,Gs,tg]=waveletmodel(audio,audios,Fs,[1],ff,ff*2,[1,2,3,4,5,6,7]);
+    var fd = .5;//Number(document.getElementById("bandwidth").value);
+    var fhn = Number(document.getElementById("transience").value);
+    var fh = [];
+        if (fhn===1){
+            fh = [1];}
+        else if (fhn===2){
+            fh = [0,1];}
+        else if (fhn===3){
+            fh = [0,0,1];}         
+    [yrec,yo,afz,t,Gc,Gs,tg]=waveletmodel(audio,audios,Fs,fh,ff,ff*fd,[1,2,3,4,5,6,7]);
     plotdata2(t,afz,config);
 }
 
