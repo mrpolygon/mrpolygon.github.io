@@ -65,7 +65,7 @@
             $$\textbf{Band Isolation}$$
             Now, in order to isolate any frequency band $f_{l}$ within $s(t)$, we convolve a specified wavelet $w_{l}(t)$ with $s(t)$. The wavelet we choose is based off the
             Gaussian wavelet in order to provide clear mediation between time and frequency resolution. Furthermore, by taking $n=0,1,2,\ldots$ fixed derivatives of the Gaussian, 
-            we are able to model levels of transience within any given band of $s(t)$. Thus,
+            we are able to model levels of transience within any given band of $s(t)$ because in the frequency domain this will place a zero at $f_{l}$ with successively widening poles symmetric about $f_{l}$. Thus,
 
             $$ w_{l}(t) = \frac{\mathrm d^n}{\mathrm d t^n}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right]e^{2\pi if_{l}t} \tag*{}$$ 
 
