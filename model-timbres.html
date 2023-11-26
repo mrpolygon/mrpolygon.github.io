@@ -58,44 +58,60 @@
 
             $$ x(t) * y(t) = \int_{-\infty}^{\infty}x(\tau)y(t-\tau) \, \mathrm d\tau. \tag*{}$$
 
-            We define the Fourier transform of any arbitrary signal $x(t)$ as
+            We define the Fourier transform pair of any arbitrary signal $x(t)$ as
             
-            $$ \mathcal{F}_{t}\left[x(t)\right](k) = \int_{-\infty}^{\infty}x(t)e^{-2\pi i kt} \, \mathrm dt. \tag*{} $$
+            $$ \begin{align} X(k) &= \mathcal{F}_{t}\left[x(t)\right](k) = \int_{-\infty}^{\infty}x(t)e^{-2\pi i kt} \, \mathrm dt \\ 
+                x(t) &= \mathcal{F}_{k}^{-1}\left[X(k)\right](t) = \int_{-\infty}^{\infty}X(k)e^{2\pi i kt} \, \mathrm dk \end{align} \tag*{} $$
+
+            where we have that $ x(t) * y(t) = \mathcal{F}_{k}^{-1}\left[X(k)Y(k)\right](t) $ by the convolution theorem.
+
+            
 
             $$\textbf{Band Isolation}$$
-            Now, in order to isolate any frequency band $f_{l}$ within $s(t)$, we convolve a specified wavelet $w_{l}(t)$ with $s(t)$. The wavelet we choose is based off the
-            Gaussian wavelet in order to provide clear mediation between time and frequency resolution. Furthermore, by taking $n=0,1,2,\ldots$ fixed derivatives of the Gaussian, 
-            we are able to model levels of transience within any given band of $s(t)$ because in the frequency domain this will place a zero at $f_{l}$ with successively widening poles symmetric about $f_{l}$. Thus,
 
-            $$ w_{l}(t) = \frac{\mathrm d^n}{\mathrm d t^n}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right]e^{2\pi if_{l}t} \tag*{}$$ 
+            In order to isolate any frequency band about $f_{l}$ within $s(t)$, we convolve a specified wavelet $w_{l}^{[n]}(t)$ with $s(t)$ defined via  
 
-            where $\beta=2\sigma$ is interpreted as frequency bandwidth (with $\sigma$ being standard deviation) because
+            $$ w_{l}^{[n]}(t) = \frac{\mathrm d^n}{\mathrm d t^n}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right]e^{2\pi if_{l}t} \tag*{}$$ 
 
-            $$ \mathcal{F}_{t}\left[e^{-\frac{1}{2}\pi^2\beta^2t^2}\right](k) = \sqrt{\frac{2}{\pi}}\frac{1}{\beta}e^{-\frac{1}{2\sigma^2} k^2}. \tag*{} $$
+            where $\beta=2\sigma$ is interpreted as frequency domain bandwidth (with $\sigma$ being standard deviation). The given wavelet choice is based off the Gaussian wavelet in order to provide smooth
+            mediation between time and frequency resolution. Furthermore, by taking $n=0,1,2,\ldots$ fixed derivatives of the Gaussian, 
+            we are able to model levels of transience within any given band of $s(t)$ because in the frequency domain this will place an $n^{th}$-degree zero at $f_{l}$ with successively widening poles symmetric about $f_{l}$.
 
-            We refer to $w_{l}(t)$ as a Hermite Gaussian wavelet because successive Gaussian derivatives can be composed of the Gaussian itself
-            multiplied by successive Hermite polynomials.  Then, our filtered output $r_{l}(t)$ is given as
+            In the frequency domain, our wavelet takes the following closed form:
 
-            $$ r_{l}(t) = \frac{2}{\max\left(\mathcal{F}_{t}\left[w_{l}(t)\right](k)\right)}\mathrm{Re}\left[s_{l}(t)* w_{l}(t)\right]. \tag*{} $$
+            $$ \mathcal{F}_{t}\left[w_{l}^{[n]}(t)\right](k) = W_{l}^{[n]}(k) = \sqrt{\frac{2}{\pi}}\frac{1}{\beta}\left(2\pi i \left(k-f_{l}\right)\right)^ne^{-\frac{2}{\beta^2} (k-f_{l})^2}. \tag*{} $$
+
+            <center><img src="Wavelet.jpeg" alt="wavelet" width=auto height=auto><br>
+                
+                Unnormalized wavelet filter shapes as viewed in the frequency domain. Here, arbitrarily $l=1$, $\beta = 6$, $f_{1} = 12$. </center><br><br>
+
+
+            We refer to $w_{l}^{[n]}(t)$ as a Hermite Gaussian wavelet because successive Gaussian derivatives can be composed of the Gaussian itself
+            multiplied by successive Hermite polynomials.  Then, our filtered output $r_{l}^{[n]}(t)$ is given as
+
+            $$ r_{l}^{[n]}(t) = \frac{2}{\max\left(\left|W_{l}^{[n]}(k)\right|\right)}\mathrm{Re}\left[s(t)*w_{l}^{[n]}(t)\right] \tag*{} $$
+
+            where the normalization factor is such to make the filter gainless.
             
             $$\textbf{Amplitude Extraction}$$
-            We now are ready to determine our amplitude contour $A_{l}(t)$. To do this, we define a step-like function $u_{l}(t)$ as
+            We now are ready to determine our amplitude contour $A_{l}^{[n]}(t)$. To do this, we define a step-like function $u_{l}(t)$ as
 
             $$ u_{l}(t) = \begin{cases}1, & 0 \leq t < 1/f_{l} \\ 0, & \text{otherwise} \end{cases} \tag*{} $$
 
             and then we simply have
 
-            $$ A_{l}(t) = \frac{\pi f_{l}}{2}\left|r_{l}(t)\right| * u_{l}(t) \tag*{} $$
+            $$ A_{l}^{[n]}(t) = \frac{\pi f_{l}}{2}\left|r_{l}^{[n]}(t)\right| * u_{l}(t) \tag*{} $$
 
             where we interpret the above convolution as an adapted moving average filter.
 
             $$\textbf{Model}$$
 
-            Defining $\tilde{s}(t)$ as the musical sound's model, we may conclude that
+            Defining $\tilde{s}^{[n]}(t)$ as the musical sound's model, we may conclude that
 
-            $$\tilde{s}(t) = \sum_{l=1}^{L}A_{l}(t)\sin(2\pi f_{l}t) \tag*{} $$
+            $$\tilde{s}^{[n]}(t) = \sum_{l=1}^{L}A_{l}^{[n]}(t)\sin(2\pi f_{l}t) \tag*{} $$
 
-            where we understand that $\tilde{s}(t)$ is sufficiently similar to the original musical sound $s(t)$.
+            where we understand that $\tilde{s}^{[0]}(t)$ is sufficiently similar to the original musical sound $s(t)$, and that for successive $n=1,2,3\ldots$ we are reconstructing the transient areas of the 
+            musical sound. 
             
             
 
